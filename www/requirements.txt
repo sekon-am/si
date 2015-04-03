@@ -1,0 +1,39 @@
+there is such feed with IPs
+i need to resolve each IP and to find out hostname, and also to put it in the db
+A: http://php.net/manual/ru/function.gethostbyaddr.php
+1) parse file
+2) resolve IP
+3) put them into the format
+4) add to the database
+ • IP address : The Address of the host detected originating the behavior
+ • ASnum : The Autonomous System Number of the IP Address via routeviews at the time of file generation and less than 24 hours old
+ • routing aggregate : The address allocation via routeviews at the time of file generation and less than 24 hours old
+ • Country : The Country code where the IP address is geo-located derived partly from private database and partly from RIRs
+ • Domain : The domain associated with the entity that owns the ASN.
+Derived from private database
+ • State : The State of the location of the IP address from a private database
+ • Timestamp (epoch time) of last connection.
+ • Diagnostic (see below)
+ • email count to subset of trap over past 7 days
+ • email count to full instrumented trap cross-section last day
+ 
+With respect to “email count” fields: The "7 day" total is the total from one trap. Its use is deprecated. The "one day" is from over a dozen traps and is the field which should be referred to.
+
+The Diagnostic field can have one of these formats:
+ • LOC (helos as destination server)
+ • MPD n:n domain,domain,domain,domain (helos as multiple unrelated domains)
+ • NEVER name (usually forged helos)
+ • MISC name (usually specific broken helos)
+ • BOGUS name,name,name (multiple illegal helos)
+ • BSIP ip-address (illegal helo'ing as IP)
+ • SSIP ip-address (illegal helo'ing as own IP)
+ • LH name (variations on localhost)
+ • FAM name [rdns] (helos as someone we know they're not)
+ • NOHELO (missing helo)
+ • HELI name (special category)
+ • CSS & BOT
+where CSS & BOT are usually:
+ • CSS type nnnn name helo
+ • BOT type nnnn name helo
+For 's_' prefix BOT entries (sinkhole), it's usually:
+ • BOT type nnnn s_zeus sinkhole_ip sinkhole_port source_port domain
