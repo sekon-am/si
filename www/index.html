@@ -24,37 +24,48 @@
 		<script src="js/ctrl.js"></script>
 	</head>
 <body>
-	<div class="container">
+	<div class="container" ng-controller="DataCtrl">
 		<h1>Structured Feed Parser</h1>
-		<table class="table table-striped" ng-controller="DataCtrl">
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>#</th>
+					<th>IP</th>
+					<th>Domain</th>
+					<th>Country</th>
+					<th>Data&amp;Time</th>
+					<th>Diagnostic</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td></td>
+				<tr ng-repeat="fields in fieldset">
+					<th scope="row">{{fields.num}}</th>
+					<td>{{fields.ip}}</td>
+					<td>{{fields.domain}}</td>
+					<td>{{fields.country}}</td>
+					<td>{{fields.t}}</td>
+					<td>{{fields.diagnostic}}</td>
 				</tr>
 			</tbody>
 		</table>
 		<nav>
-			<ul class="pagination" ng-controller="PageCtrl">
-				<li>
-					<a href="#" aria-label="Previous">
+			<ul class="pagination">
+<!--				<li>
+					<a aria-label="Previous" ng-click="pageleft">
 						<span aria-hidden="true">&laquo;</span>
 					</a>
+				</li>-->
+				<li ng-repeat="page in pages" class="{{page.clss}}">
+					<a ng-click="loaddata(page.num)">{{page.num+1}}</a>
 				</li>
-				<li><a href="#">1</a></li>
-				<li>
-					<a href="#" aria-label="Next">
+<!--				<li>
+					<a aria-label="Next" ng-click="pageright">
 						<span aria-hidden="true">&raquo;</span>
 					</a>
-				</li>
+				</li>-->
 			</ul>
 		</nav>
-		<div ng-controller="UploadCtrl">
+		<div>
 			<div ng-file-drop ng-file-select ng-model="files" class="drop-box" drag-over-class="dragover" ng-multiple="true" allow-dir="true" accept="text/*">Drop pdfs or images here or click to upload</div>
 			<div ng-no-file-drop>File Drag/Drop is not supported for this browser</div>
 			<ul>

@@ -1,4 +1,5 @@
 <?php
+set_time_limit(0);
 function autoloader($class) {
 	include_once(strtolower($class).'.php');
 }
