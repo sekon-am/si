@@ -26,6 +26,11 @@
 <body>
 	<div class="container" ng-controller="DataCtrl">
 		<h1>Structured Feed Parser</h1>
+		<div>
+			<span>Maximum length of diagnostic field 
+				<input type="number" step="1" ng-model="diagnosticLenLimit">
+			</span>
+		</div>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -44,10 +49,18 @@
 					<td>{{fields.domain}}</td>
 					<td>{{fields.country}}</td>
 					<td>{{fields.t}}</td>
-					<td>{{fields.diagnostic}}</td>
+					<td>{{fields.diagnostic | limitTo:diagnosticLenLimit}}</td>
 				</tr>
 			</tbody>
 		</table>
+		<div>
+			<span>Start pages from 
+				<input type="number" step="1" ng-model="pagesFrom" min="1">
+			</span>
+			<span>Finish pages at 
+				<input type="number" step="1" ng-model="pagesTo" min="1">
+			</span>
+		</div>
 		<nav>
 			<ul class="pagination">
 <!--				<li>
@@ -55,7 +68,7 @@
 						<span aria-hidden="true">&laquo;</span>
 					</a>
 				</li>-->
-				<li ng-repeat="page in pages" class="{{page.clss}}">
+				<li ng-repeat="page in pages | range : pagesFrom : pagesTo" class="{{page.clss}}">
 					<a ng-click="loaddata(page.num)">{{page.num+1}}</a>
 				</li>
 <!--				<li>
