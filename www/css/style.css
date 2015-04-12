@@ -10,3 +10,7 @@
 .pagination li {
 	cursor:pointer;
 }
+.flag-icon{
+	width:28px;
+	height:21px;
+}
