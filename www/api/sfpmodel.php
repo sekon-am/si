@@ -2,7 +2,11 @@
 class Sfpmodel {
 	private $db;
 	private $dataAdd;
-	public function __construct($db_host='localhost',$db_user='root',$db_pass='',$db_name='test') {
+	public function __construct($db_host=null,$db_user=null,$db_pass=null,$db_name=null) {
+		if($db_host===null)$db_host=Config::DB_HOST;
+		if($db_user===null)$db_user=Config::DB_USER;
+		if($db_pass===null)$db_pass=Config::DB_PASS;
+		if($db_name===null)$db_name=Config::DB_NAME;
 		$this->db = new mysqli($db_host,$db_user,$db_pass,$db_name);
 		if($err = $this->db->connect_error){
 			die($err);
