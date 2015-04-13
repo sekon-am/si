@@ -59,7 +59,7 @@
 				<input type="number" step="1" ng-model="pagesFrom" min="1" max="{{pagesTo}}">
 			</span>
 			<span>Finish pages at 
-				<input type="number" step="1" ng-model="pagesTo" min="1" max="{{pages_amount}}">
+				<input type="number" step="1" ng-model="pagesTo" min="{{pagesFrom}}" max="{{pages_amount}}">
 			</span>
 		</div>
 		<nav>
