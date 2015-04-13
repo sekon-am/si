@@ -29,7 +29,7 @@ while(my $row = <$file>){
 	$params[7] = substr($params[7],2) if(substr($params[7],1,1) eq '_');
 	$params[7] =~ s/\s*n\/a//ig;
 	$params[7] =~ s/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s*80)\s+\d+/$1/ig;
-	push @rows, "('".join("','",@params)."')";
+	push @rows, "('".join("','",map { $_ =~ s/(['"])/\\$1/ig; $_ } @params)."')";
 }
 insert_rows;
 

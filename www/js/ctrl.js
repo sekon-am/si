@@ -10,24 +10,40 @@ angular.module('sfp',['angularFileUpload'])
 .controller('DataCtrl',['$scope', '$http', '$upload', function($scope, $http, $upload) {
 	$scope.diagnosticLenLimit = 60;
 	$scope.pagesFrom = 1;
-	$scope.pagesTo = 50;
-	var page = 0;
+	$scope.pages_amount = 1;
+	var page_num= 0;
 	function loadData(num) {
 		$http.get('api/index.php?action=data&from='+num).success(function(data){
 			$scope.fieldset = data;
-			page = num;
-			for(var i=0;i<$scope.pages.length;i++){
-				$scope.pages[i].clss = '';
-			}
-			$scope.pages[page].clss = 'active';
+			page_num = num;
+			$scope.pages[num].clss = 'active';
 		});
 	}
+	function update_pages() {
+		$scope.pages = [];
+		for(var i=$scope.pagesFrom-1;i<$scope.pagesTo;i++){
+			$scope.pages[i] = {num: i, clss: ''};
+		}
+	}
 	function loadPages(callback) {
-		$http.get('api/index.php?action=pages&pagesfrom='+$scope.pagesFrom+'&pagesto='+$scope.pagesTo).success(function(data){
-			$scope.pages = data;
+		$http.get('api/index.php?action=pages').success(function(data){
+			$scope.pages_amount = data.pages_amount;
+			update_pages();
 			if(typeof callback == 'function')callback();
 		});
 	}
+	$scope.$watch('pagesFrom',function(){
+		update_pages();
+		if($scope.pagesFrom-1>page_num){
+			loadData($scope.pagesFrom-1);
+		}
+	});
+	$scope.$watch('pagesTo',function(){
+		update_pages();
+		if($scope.pagesTo-1<page_num){
+			loadData($scope.pagesTo-1);
+		}
+	});
 /*	$scope.pageleft = function () {
 		console.log('11');
 		if(page>0){
@@ -61,6 +77,7 @@ angular.module('sfp',['angularFileUpload'])
 		}
 	});
 	loadPages(function(){
+		$scope.pagesTo = Math.min($scope.pages_amount,10);
 		loadData(0);
 	});
 }]);

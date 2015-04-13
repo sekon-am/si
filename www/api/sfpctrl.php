@@ -34,14 +34,11 @@ class Sfpctrl {
 	}
 	function pages() {
 		$pages = array();
-		$pagesAmount = $this->model->rowsAmount();
-		for($i=0;$i*Config::SETS_PER_PAGE<$pagesAmount;$i++){
-			unset($page);
-			$page->num = $i;
-			$page->clss = '';
-			$pages []= $page;
-		}
-		echo json_encode($pages);
+		$rowsAmount = $this->model->rowsAmount();
+		$pagesAmount = ceil($rowsAmount / Config::SETS_PER_PAGE);
+		$obj->pages_amount = $pagesAmount;
+		$obj->rows_per_page = Config::SETS_PER_PAGE;
+		echo json_encode($obj);
 	}
 	function data() {
 		$from = intval( Input::get('from') )*Config::SETS_PER_PAGE;
