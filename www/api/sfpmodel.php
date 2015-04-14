@@ -52,6 +52,16 @@ class Sfpmodel {
 		return $res[0]->amount;
 	}
 	public function sliceData($from) {
-		return $this->_query("SELECT * FROM sfp LIMIT {$from}," . Config::SETS_PER_PAGE);
+		$data = $this->_query("SELECT * FROM sfp LIMIT {$from}," . Config::SETS_PER_PAGE);
+		$i = 1;
+		foreach($data as &$el){
+			$el->num = $from + $i++;
+			$diagnostic = preg_split('~\s+~',$el->diagnostic);
+			$el->method = $diagnostic[0];
+			$el->ip1 = $diagnostic[1];
+			$el->port = $diagnostic[2];
+			$el->ip2 = (count($diagnostic)>3)?$diagnostic[3]:'';
+		}
+		return $data;
 	}
 }

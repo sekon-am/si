@@ -43,10 +43,6 @@ class Sfpctrl {
 	function data() {
 		$from = intval( Input::get('from') )*Config::SETS_PER_PAGE;
 		$data = $this->model->sliceData( $from );
-		$i = 1;
-		foreach($data as $el){
-			$el->num = $from + $i++;
-		}
 		echo json_encode( $data );
 	}
 }

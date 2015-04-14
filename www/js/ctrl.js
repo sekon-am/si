@@ -48,23 +48,4 @@ angular.module('sfp',['angularFileUpload'])
 			loadData(page_num);
 		}
 	});
-	$scope.$watch('files',function(){
-		var files = $scope.files;
-		if(files && files.length){
-			for(var i=0;i<files.length;i++){
-				var file = files[i];
-				$upload.upload({
-					url:'api/index.php?action=import',
-					file:file
-				}).progress(function(evt){
-					var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-					console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
-				}).success(function(data, status, headers, config){
-					loadPages();
-				}).error(function(data){
-					console.log('Errod during uploading process... '+data);
-				});
-			}
-		}
-	});
 }]);

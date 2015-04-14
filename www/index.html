@@ -7,7 +7,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<link rel="icon" href="favicon.ico">
-		<title>Structured Feed Parser</title>
+		<title>Security Intelligence Feed</title>
 		
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -18,6 +18,7 @@
 		<![endif]-->
 		<link href="css/flag-icon.min.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
+		<link href="httl://ecrime.intelcrawler.com/css/style.css" rel="stylesheet">
 		
 		<script src="js/angular.min.js"></script>
 		<script src="js/angular-file-upload.js"></script>
@@ -25,66 +26,77 @@
 		<script src="js/ctrl.js"></script>
 	</head>
 <body>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><img src="images/logo_s.png" alt="Ecrime" width="135"></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 	<div class="container" ng-controller="DataCtrl">
-		<h1>Structured Feed Parser</h1>
-		<div>
-			<span>Maximum length of diagnostic field 
-				<input type="number" step="1" ng-model="diagnosticLenLimit">
-			</span>
-		</div>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>#</th>
-					<th>IP</th>
-					<th>Domain</th>
-					<th>Country</th>
-					<th>Data&amp;Time</th>
-					<th>Diagnostic</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="fields in fieldset">
-					<th scope="row">{{fields.num}}</th>
-					<td>{{fields.ip}}</td>
-					<td>{{fields.domain}}</td>
-					<td><span class="flag-icon flag-icon-{{fields.country | lowercase}}"></span></td>
-					<td>{{fields.t}}</td>
-					<td>{{fields.diagnostic | limitTo:diagnosticLenLimit}}</td>
-				</tr>
-			</tbody>
-		</table>
-		<div>
-			<span>Start pages from 
-				<input type="number" step="1" ng-model="pagesFrom" min="1" max="{{pagesTo}}">
-			</span>
-			<span>Finish pages at 
-				<input type="number" step="1" ng-model="pagesTo" min="{{pagesFrom}}" max="{{pages_amount}}">
-			</span>
-		</div>
-		<nav>
-			<ul class="pagination">
-<!--				<li>
-					<a aria-label="Previous" ng-click="pageleft">
-						<span aria-hidden="true">&laquo;</span>
-					</a>
-				</li>-->
-				<li ng-repeat="page in pages" class="{{page.clss}}">
-					<a ng-click="loaddata(page.num)">{{page.num+1}}</a>
-				</li>
-<!--				<li>
-					<a aria-label="Next" ng-click="pageright">
-						<span aria-hidden="true">&raquo;</span>
-					</a>
-				</li>-->
-			</ul>
-		</nav>
-		<div>
-			<div ng-file-drop ng-file-select ng-model="files" class="drop-box" drag-over-class="dragover" ng-multiple="true" allow-dir="true" accept="text/*">Drop files here or click to upload</div>
-			<div ng-no-file-drop>File Drag/Drop is not supported for this browser</div>
-			<ul>
-				<li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
-			</ul>
+		<div class="jumbotron">
+			<h1>Security Intelligence Feed</h1>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>IP</th>
+						<th>Domain</th>
+						<th>Country</th>
+						<th>Data&amp;Time</th>
+						<th>Malware</th>
+						<th>Destination IP</th>
+						<th>Port</th>
+						<th>C&amp;C</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="fields in fieldset">
+						<th scope="row">{{fields.num}}</th>
+						<td>{{fields.ip}}</td>
+						<td>{{fields.domain}}</td>
+						<td><span class="flag-icon flag-icon-{{fields.country | lowercase}}"></span></td>
+						<td>{{fields.t}}</td>
+						<td>{{fields.method}}</td>
+						<td>{{fields.ip1}}</td>
+						<td>{{fields.port}}</td>
+						<td>{{fields.ip2}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<span>Start pages from 
+					<input type="number" step="1" ng-model="pagesFrom" min="1" max="{{pagesTo}}">
+				</span>
+				<span>Finish pages at 
+					<input type="number" step="1" ng-model="pagesTo" min="{{pagesFrom}}" max="{{pages_amount}}">
+				</span>
+			</div>
+			<nav>
+				<ul class="pagination">
+	<!--				<li>
+						<a aria-label="Previous" ng-click="pageleft">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>-->
+					<li ng-repeat="page in pages" class="{{page.clss}}">
+						<a ng-click="loaddata(page.num)">{{page.num+1}}</a>
+					</li>
+	<!--				<li>
+						<a aria-label="Next" ng-click="pageright">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>-->
+				</ul>
+			</nav>
 		</div>
 	</div>
 </body>

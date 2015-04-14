@@ -1,3 +1,26 @@
+body{
+	min-height:1500px;
+	background: #111;
+	background: -moz-linear-gradient(top, #1b6483, #7dbed3);
+	background: -webkit-gradient(linear, left top, left bottom,color-stop(0%,#1b6483), color-stop(100%,#7dbed3));
+	background: -webkit-linear-gradient(top, #1b6483, #7dbed3);
+	background: -o-linear-gradient(top, #1b6483, #7dbed3);
+	background: -ms-linear-gradient(top, #1b6483, #7dbed3);
+	background: linear-gradient(top, #1b6483, #7dbed3);
+	-pie-background: linear-gradient(#1b6483, #7dbed3);
+	text-shadow: 0 0 0px #000;
+}
+.navbar-default {
+	background-color: #242424;
+	border-color: #242424;
+	color: #A5A5A5;
+}
+.navbar-static-top {
+	margin-bottom: 19px;
+}
+.jumbotron .h1, .jumbotron h1 {
+    font-size: 34px;
+}
 .drop-box {
     background: #F8F8F8;
     border: 5px dashed #DDD;
