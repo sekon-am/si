@@ -3,6 +3,7 @@ class Sfpmodel {
 	private $db;
 	private $dataAdd;
 	public function __construct($db_host=null,$db_user=null,$db_pass=null,$db_name=null) {
+		session_start();
 		if($db_host===null)$db_host=Config::DB_HOST;
 		if($db_user===null)$db_user=Config::DB_USER;
 		if($db_pass===null)$db_pass=Config::DB_PASS;
@@ -47,12 +48,27 @@ class Sfpmodel {
 		}
 		return null;
 	}
-	public function rowsAmount() {
-		$res = $this->_query("SELECT COUNT(*) as `amount` FROM sfp WHERE 1");
+	public function rowsAmount($ip='',$domain='',$malware='') {
+		$sql = "SELECT COUNT(*) as `amount` FROM sfp WHERE 1";
+		if($ip) {
+			$sql .= ' AND (ip LIKE "'.$ip.'%")';
+		}
+		if($domain) {
+			$sql .= ' AND (domain LIKE "'.$domain.'%")';
+		}
+		if($malware) {
+			$sql .= ' AND (diagnostic LIKE "'.$malware.'%")';
+		}
+		$res = $this->_query($sql);
 		return $res[0]->amount;
 	}
-	public function sliceData($from) {
-		$data = $this->_query("SELECT * FROM sfp LIMIT {$from}," . Config::SETS_PER_PAGE);
+	public function sliceData($from,$ip='',$domain='',$malware='') {
+		$sql = "SELECT * FROM sfp WHERE 1";
+		if($ip) $sql .= ' AND (ip LIKE "'.$ip.'%")';
+		if($domain) $sql .= ' AND (domain LIKE "'.$domain.'%")';
+		if($malware) $sql .= ' AND (diagnostic LIKE "'.$malware.'%")';
+		Log::write($sql);
+		$data = $this->_query($sql . " LIMIT {$from}," . Config::SETS_PER_PAGE);
 		$i = 1;
 		foreach($data as &$el){
 			$el->num = $from + $i++;

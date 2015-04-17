@@ -9,4 +9,10 @@ class Input {
 	public static function post($name) {
 		return self::value($name,$_POST);
 	}
+	public static function session($name) {
+		if(isset($_SESSION[$name])){
+			return self::value($name,$_SESSION);
+		}
+		return '';
+	}
 }

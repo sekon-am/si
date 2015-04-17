@@ -19,11 +19,6 @@
 		<link href="css/flag-icon.min.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
 		<link href="httl://ecrime.intelcrawler.com/css/style.css" rel="stylesheet">
-		
-		<script src="js/angular.min.js"></script>
-		<script src="js/angular-file-upload.js"></script>
-		<script src="js/angular-file-upload-shim.js"></script>
-		<script src="js/ctrl.js"></script>
 	</head>
 <body>
     <nav class="navbar navbar-default navbar-static-top">
@@ -44,6 +39,21 @@
 	<div class="container" ng-controller="DataCtrl">
 		<div class="jumbotron">
 			<h1>Security Intelligence Feed</h1>
+			<form class="form-inline">
+				<div class="form-group">
+					<label class="sr-only" for="ip_filter">IP address</label>
+					<input type="text" class="form-control" id="ip_filter" ng-model="ip_filter" placeholder="Enter IP">
+				</div>
+				<div class="form-group">
+					<label class="sr-only" for="domain_filter">Domain name</label>
+					<input type="text" class="form-control" id="domain_filter" ng-model="domain_filter" placeholder="Enter Domain Name">
+				</div>
+				<div class="form-group">
+					<label class="sr-only" for="malware_filter">Malware</label>
+					<input type="text" class="form-control" id="malware_filter" ng-model="malware_filter" placeholder="Enter Malware">
+				</div>
+				<button type="button" class="btn btn-primary" ng-click="loadpages()">Search</button>
+			</form>
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -99,5 +109,10 @@
 			</nav>
 		</div>
 	</div>
+		
+		<script src="js/angular.min.js"></script>
+		<script src="js/angular-file-upload.js"></script>
+		<script src="js/angular-file-upload-shim.js"></script>
+		<script src="js/ctrl.js"></script>
 </body>
 </html>

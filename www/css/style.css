@@ -8,7 +8,6 @@ body{
 	background: -ms-linear-gradient(top, #1b6483, #7dbed3);
 	background: linear-gradient(top, #1b6483, #7dbed3);
 	-pie-background: linear-gradient(#1b6483, #7dbed3);
-	text-shadow: 0 0 0px #000;
 }
 .navbar-default {
 	background-color: #242424;
@@ -36,4 +35,7 @@ body{
 .flag-icon{
 	width:28px;
 	height:21px;
+}
+.form-inline{
+	margin: 15px auto;
 }

@@ -4,13 +4,15 @@ angular.module('sfp',['angularFileUpload'])
 	var page_num;
 	
 	function loadPages(callback) {
-		$http.get('api/index.php?action=pages').success(function(data){
-			$scope.pages_amount = data.pages_amount;
+		$http.get('api/index.php?action=pages&ip_filter='+$scope.ip_filter+'&domain_filter='+$scope.domain_filter+'&malware_filter='+$scope.malware_filter).success(function(data){
+			$scope.pages_amount = Math.max(1,data.pages_amount);
+			$scope.pagesTo = Math.max(1,Math.min($scope.pages_amount,$scope.pagesTo));
 			if(typeof callback == 'function')callback();
 		});
 	}
 	function loadData(num) {
-		$http.get('api/index.php?action=data&from='+num).success(function(data){
+		if(!(num = Number(num)))num=0;
+		$http.get('api/index.php?action=data&from='+num+'&ip_filter='+$scope.ip_filter+'&domain_filter='+$scope.domain_filter+'&malware_filter='+$scope.malware_filter).success(function(data){
 			$scope.fieldset = data;
 			page_num = num;
 			for(var i=0; i<$scope.pages.length; i++){
@@ -26,9 +28,15 @@ angular.module('sfp',['angularFileUpload'])
 	}
 
 	$scope.loaddata = loadData;
+	$scope.loadpages = function (){
+		loadPages( loadData	);
+	};
 	$scope.diagnosticLenLimit = 60;
 	$scope.pagesFrom = 1;
 	$scope.pages_amount = 1;
+	$scope.ip_filter = '';
+	$scope.domain_filter = '';
+	$scope.malware_filter = '';
 	loadPages(function(){
 		$scope.pagesTo = Math.min($scope.pages_amount,10);
 		loadData(0);
