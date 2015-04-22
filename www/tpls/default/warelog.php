@@ -14,6 +14,11 @@
 					<input type="text" class="form-control" id="malware_filter" ng-model="malware_filter" placeholder="Enter Malware">
 				</div>
 				<button type="button" class="btn btn-primary" ng-click="loadpages()">Search</button>
+				<div class="form-group">
+				<div class="export-format-btn export-format-txt" ng-click="doexport('txt')"></div>
+				<div class="export-format-btn export-format-json" ng-click="doexport('json')"></div>
+				<div class="export-format-btn export-format-xml" ng-click="doexport('xml')"></div>
+				</div>
 			</form>
 			<table class="table table-striped">
 				<thead>

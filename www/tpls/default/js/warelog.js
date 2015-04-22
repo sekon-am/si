@@ -1,6 +1,6 @@
 'use strict';
 angular.module('warelog',[])
-.controller('DataCtrl',['$scope', '$http', function($scope, $http) {
+.controller('DataCtrl',['$scope', '$http', '$window', function($scope, $http, $window) {
 	var page_num;
 	
 	function loadPages(callback) {
@@ -31,6 +31,9 @@ angular.module('warelog',[])
 	$scope.loadpages = function (){
 		loadPages( loadData	);
 	};
+	$scope.doexport = function (format) {
+		$window.open('index.php?ctrl=warelog&action=data&from='+page_num+'&ip_filter='+$scope.ip_filter+'&domain_filter='+$scope.domain_filter+'&malware_filter='+$scope.malware_filter+'&format='+format);
+	}
 	$scope.diagnosticLenLimit = 60;
 	$scope.pagesFrom = 1;
 	$scope.pages_amount = 1;

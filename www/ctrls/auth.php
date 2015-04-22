@@ -13,19 +13,30 @@ class Auth extends Ctrl {
 		$res = null;
 		$res->done = false;
 		$res->error = '';
-		if( ( $login = Input::get('login') ) && ( $pass = Input::get('pass') ) ) {
+		if( ( $login = trim( Input::get('login') ) ) && ( $pass = trim( Input::get('pass') ) ) ) {
 			if( $this->model->login($login,$pass) ) {
 				$res->done = true;
 			}else{
 				$res->error = "User with typed login/pass doesn't exist";
 			}
 		}else{
-			$res->error = "User with typed login/pass doesn't exist";
+			$res->error = "Login or password is empty";
 		}
 		Response::json($res);
 	}
 	public function logout() {
 		$this->model->logout();
 		$this->loginform();
+	}
+	public function check() {
+		if(!$this->model->check()){
+			die();
+		}
+	}
+	public function checkUI() {
+		if(!$this->model->check()){
+			$this->loginform();
+			die();
+		}
 	}
 }

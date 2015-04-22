@@ -47,3 +47,28 @@ body{
 #login-form input, #login-form button {
 	margin: 10px auto;
 }
+.navbar-default .navbar-nav > li > a {
+	color:#888;
+}
+.navbar-default .navbar-nav > li > a:hover {
+	color:#ccc;
+}
+.export-format-btn {
+	display:inline-block;
+	width:50px;
+	height:50px;
+	background-size:cover;
+}
+.export-format-btn:hover {
+	cursor:pointer;
+	transform:scale(1.05,1.05);
+}
+.export-format-txt {
+	background-image:url(../images/txt.png);
+}
+.export-format-json {
+	background-image:url(../images/json.png);
+}
+.export-format-xml {
+	background-image:url(../images/xml.png);
+}

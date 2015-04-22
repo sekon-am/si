@@ -1,7 +1,7 @@
 		<div class="jumbotron" ng-app="log_in" ng-controller="LoginCtrl" id='login-form'>
 		<form class="form-signin container">
 			<h3>Autorize please</h3>
-			<div class="bg-danger"></div>
+			<div class="bg-danger">{{error}}</div>
 			<label for="inputLogin" class="sr-only">Login</label>
 			<input type="text" id="inputLogin" class="form-control" placeholder="Login" required autofocus ng-model="login">
 			<label for="inputPass" class="sr-only">Password</label>

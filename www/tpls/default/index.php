@@ -33,6 +33,7 @@
           <a class="navbar-brand" href="/"><img src="<?php $this->printTplDir(); ?>images/logo_s.png" alt="Ecrime" width="135"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+<?php $this->loadMainMenu(); ?>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
