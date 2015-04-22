@@ -39,3 +39,11 @@ body{
 .form-inline{
 	margin: 15px auto;
 }
+#login-form {
+	width:500px;
+	margin:auto;
+	text-align:center;
+}
+#login-form input, #login-form button {
+	margin: 10px auto;
+}
