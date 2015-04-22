@@ -1,7 +1,7 @@
 'use strict';
 angular.module('warelog',[])
 .controller('DataCtrl',['$scope', '$http', function($scope, $http) {
-/*	var page_num;
+	var page_num;
 	
 	function loadPages(callback) {
 		$http.get('index.php?ctrl=warelog&action=pages&ip_filter='+$scope.ip_filter+'&domain_filter='+$scope.domain_filter+'&malware_filter='+$scope.malware_filter).success(function(data){
@@ -12,7 +12,7 @@ angular.module('warelog',[])
 	}
 	function loadData(num) {
 		if(!(num = Number(num)))num=0;
-		$http.get('api/index.php?ctrl=warelog&action=data&from='+num+'&ip_filter='+$scope.ip_filter+'&domain_filter='+$scope.domain_filter+'&malware_filter='+$scope.malware_filter).success(function(data){
+		$http.get('index.php?ctrl=warelog&action=data&from='+num+'&ip_filter='+$scope.ip_filter+'&domain_filter='+$scope.domain_filter+'&malware_filter='+$scope.malware_filter).success(function(data){
 			$scope.fieldset = data;
 			page_num = num;
 			for(var i=0; i<$scope.pages.length; i++){
@@ -55,5 +55,5 @@ angular.module('warelog',[])
 			page_num = $scope.pagesTo-1;
 			loadData(page_num);
 		}
-	});*/
+	});
 }]);

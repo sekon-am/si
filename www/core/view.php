@@ -26,7 +26,7 @@ abstract class View {
 		if(file_exists($fname)){
 			ob_start();
 			include($fname);
-			$output =  ob_end_flush();
+			$output = ob_get_clean();
 			return $output;
 		}else{
 			die("Can't find tpl {$fname}");

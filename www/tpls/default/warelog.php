@@ -1,4 +1,4 @@
-		<div class="jumbotron" ng-app="wirelog" ng-controller="DataCtrl">
+		<div class="jumbotron" ng-app="warelog" ng-controller="DataCtrl">
 			<h1>Security Intelligence Feed</h1>
 			<form class="form-inline">
 				<div class="form-group">
@@ -59,5 +59,5 @@
 				</ul>
 			</nav>
 		</div>
-		<script src="<?php $this->printTplDir(); ?>js/angular.min.js"></script>
+		<script src="<?php $this->printTplDir(); ?>js/angular.js"></script>
 		<script src="<?php $this->printTplDir(); ?>js/warelog.js"></script>
