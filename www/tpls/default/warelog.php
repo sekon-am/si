@@ -64,5 +64,4 @@
 				</ul>
 			</nav>
 		</div>
-		<script src="<?php $this->printTplDir(); ?>js/angular.js"></script>
 		<script src="<?php $this->printTplDir(); ?>js/warelog.js"></script>
