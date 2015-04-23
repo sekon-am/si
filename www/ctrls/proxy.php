@@ -1,32 +1,27 @@
 <?php
-class WareLog extends Ctrl {
+class Proxy extends Ctrl {
 	private $model;
 	private $auth;
 	public function __construct() {
 		parent::__construct();
-		$this->model = new WareLogModel();
+		$this->model = new ProxyModel();
 		$this->auth = new Auth();
 	}
 	public function pages() {
 		$this->auth->check();
 		$pages = array();
-		$ip = Input::get('ip_filter');
-		$domain = Input::get('domain_filter');
-		$malware = Input::get('malware_filter');
-		$rowsAmount = $this->model->rowsAmount($ip,$domain,$malware);
+		$rowsAmount = $this->model->rowsAmount();
 		$pagesAmount = ceil($rowsAmount / Config::SETS_PER_PAGE);
+		$obj = null;
 		$obj->pages_amount = $pagesAmount;
 		$obj->rows_per_page = Config::SETS_PER_PAGE;
-		echo json_encode($obj);
+		Response::json($obj);
 	}
 	public function data() {
 		$this->auth->check();
 		$from = intval( Input::get('from') )*Config::SETS_PER_PAGE;
-		$ip = Input::get('ip_filter');
-		$domain = Input::get('domain_filter');
-		$malware = Input::get('malware_filter');
 		$format = Input::get('format');
-		$data = $this->model->sliceData( $from,$ip,$domain,$malware );
+		$data = $this->model->sliceData( $from );
 		if($format){
 			foreach($data as $el){
 				unset($el->id);
@@ -51,7 +46,39 @@ class WareLog extends Ctrl {
 	}
 	public function index() {
 		$this->auth->checkUI();
-		$view = new WareLogView();
+		$view = new ProxyView();
 		$view->display();
+	}
+	private function addLn($ln) {
+		if( ($ln = trim($ln)) && ($ln{0} != '#') ) {
+			$this->model->add(explode(',',$ln));
+		}
+	}
+	function import() {
+		$res = null;
+		foreach($_FILES as $file){
+			move_uploaded_file($file['tmp_name'],$file['name']);
+			$fname = $file['name'];
+			$f = fopen($fname, 'r');
+			$str = '';
+			$amount = 0;
+			while(!feof($f)){
+				$str .= fread($f,100000);
+				$lns = explode("\n",$str);
+				$amount += count($lns);
+				$str = array_pop($lns);
+				foreach($lns as $ln){
+					$this->addLn($ln);
+				}
+				$this->model->submitAdd();
+			}
+			fclose($f);
+			unlink($fname);
+			$obj = null;
+			$obj->fname = $fname;
+			$obj->amount = $amount;
+			$res->files []= $obj;
+		}
+		Response::json($res);
 	}
 }

@@ -1,11 +1,5 @@
 <?php
 class WareLogModel extends Model {
-	private $dataAdd;
-	public function __construct() {
-		parent::__construct();
-		session_start();
-		$this->dataAdd = '';
-	}
 	public function rowsAmount($ip='',$domain='',$malware='') {
 		$sql = "SELECT COUNT(*) as `amount` FROM sfp WHERE 1";
 		if($ip) {
@@ -34,6 +28,7 @@ class WareLogModel extends Model {
 			$el->ip1 = $diagnostic[1];
 			$el->port = $diagnostic[2];
 			$el->ip2 = (count($diagnostic)>3)?$diagnostic[3]:'';
+			unset($el->diagnostic);
 		}
 		return $data;
 	}

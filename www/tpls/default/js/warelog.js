@@ -11,8 +11,8 @@ angular.module('warelog',[])
 		});
 	}
 	function loadData(num) {
-		if(!(num = Number(num)))num=0;
-		$http.get('index.php?ctrl=warelog&action=data&from='+num+'&ip_filter='+$scope.ip_filter+'&domain_filter='+$scope.domain_filter+'&malware_filter='+$scope.malware_filter).success(function(data){
+		if(!(num = Number(num)))num=1;
+		$http.get('index.php?ctrl=warelog&action=data&from='+(num-1)+'&ip_filter='+$scope.ip_filter+'&domain_filter='+$scope.domain_filter+'&malware_filter='+$scope.malware_filter).success(function(data){
 			$scope.fieldset = data;
 			page_num = num;
 			for(var i=0; i<$scope.pages.length; i++){
@@ -22,7 +22,7 @@ angular.module('warelog',[])
 	}
 	function update_pages() {
 		$scope.pages = [];
-		for(var i=$scope.pagesFrom-1;i<$scope.pagesTo;i++){
+		for(var i=$scope.pagesFrom;i<=$scope.pagesTo;i++){
 			$scope.pages.push({num: i, clss: (i == page_num) ? 'active' : ''});
 		}
 	}
@@ -32,9 +32,8 @@ angular.module('warelog',[])
 		loadPages( loadData	);
 	};
 	$scope.doexport = function (format) {
-		$window.open('index.php?ctrl=warelog&action=data&from='+page_num+'&ip_filter='+$scope.ip_filter+'&domain_filter='+$scope.domain_filter+'&malware_filter='+$scope.malware_filter+'&format='+format);
+		$window.open('index.php?ctrl=warelog&action=data&from='+(page_num-1)+'&ip_filter='+$scope.ip_filter+'&domain_filter='+$scope.domain_filter+'&malware_filter='+$scope.malware_filter+'&format='+format);
 	}
-	$scope.diagnosticLenLimit = 60;
 	$scope.pagesFrom = 1;
 	$scope.pages_amount = 1;
 	$scope.ip_filter = '';
@@ -47,15 +46,15 @@ angular.module('warelog',[])
 
 	$scope.$watch('pagesFrom',function(){
 		update_pages();
-		if($scope.pagesFrom-1 > page_num){
-			page_num = $scope.pagesFrom-1;
+		if($scope.pagesFrom > page_num){
+			page_num = $scope.pagesFrom;
 			loadData(page_num);
 		}
 	});
 	$scope.$watch('pagesTo',function(){
 		update_pages();
-		if($scope.pagesTo-1 < page_num){
-			page_num = $scope.pagesTo-1;
+		if($scope.pagesTo < page_num){
+			page_num = $scope.pagesTo;
 			loadData(page_num);
 		}
 	});

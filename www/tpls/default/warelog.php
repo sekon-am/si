@@ -59,7 +59,7 @@
 			<nav>
 				<ul class="pagination">
 					<li ng-repeat="page in pages" class="{{page.clss}}">
-						<a ng-click="loaddata(page.num)">{{page.num+1}}</a>
+						<a ng-click="loaddata(page.num)">{{page.num}}</a>
 					</li>
 				</ul>
 			</nav>
