@@ -33,6 +33,8 @@ class WareLogModel extends Model {
 		}
 		if($is_limited){
 			$sql .= " LIMIT {$from}," . Config::SETS_PER_PAGE;
+		}else{
+			set_time_limit(0);
 		}
 		$data = $this->query($sql);
 		$i = 1;
