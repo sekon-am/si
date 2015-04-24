@@ -15,6 +15,7 @@
 				</div>
 				<button type="button" class="btn btn-primary" ng-click="loadpages()">Search</button>
 			</form>
+<?php $this->loadWareFeeds(); ?>
 <?php $this->loadWareTable(); ?>
 			<script src="<?php $this->printTplDir(); ?>js/warelog.js"></script>
 		</div>

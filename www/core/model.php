@@ -29,4 +29,7 @@ class Model {
 	protected function affected_rows() {
 		return $this->db->affected_rows;
 	}
+	protected function insert_id() {
+		return $this->db->insert_id;
+	}
 }

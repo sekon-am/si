@@ -1,7 +1,7 @@
 <?php
 class WareLog extends Ctrl {
 	private $model;
-	private $auth;
+	protected $auth;
 	public function __construct() {
 		parent::__construct();
 		$this->model = new WareLogModel();
@@ -45,6 +45,13 @@ class WareLog extends Ctrl {
 				}
 				Response::text($txt);
 				break;
+			case 'cc':
+				$txt = '';
+				foreach($data as $row)if($row->ip2){
+					$txt .= $row->ip2 . "\n";
+				}
+				Response::text($txt);
+				break;
 			case 'xml':
 				Response::xml($data);
 				break;
@@ -57,20 +64,5 @@ class WareLog extends Ctrl {
 		$this->auth->checkUI();
 		$view = new WareLogView();
 		$view->display();
-	}
-	public function subscribe() {
-		$this->auth->checkUI();
-		$view = new WareLogView('subscribe');
-		$view->display();
-	}
-	public function addsubscr() {
-		$this->auth->check();
-		$ip_start = Input::get('ip_start');
-		$ip_finish = Input::get('ip_finish');
-		return new Obj(
-			array(
-				'affected'=>$this->model->addSubscr($ip_start,$ip_finish)
-			)
-		);
 	}
 }

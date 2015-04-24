@@ -72,3 +72,23 @@ body{
 .export-format-xml {
 	background-image:url(../images/xml.png);
 }
+.export-format-cc {
+	background-image:url(../images/cc.png);
+}
+.ip-ranges {
+	padding-left:0;
+}
+.ip-ranges li {
+	display:inline-block;
+	margin-right:50px;
+}
+.ip-range-del{
+	color:#2E6DA4;
+}
+.ip-range-del:hover{
+	cursor:pointer;
+	color:red;
+}
+.ip-range{
+	cursor:pointer;
+}

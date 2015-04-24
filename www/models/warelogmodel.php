@@ -47,11 +47,4 @@ class WareLogModel extends Model {
 		}
 		return $data;
 	}
-	public function addSubscr($ip_start,$ip_finish) {
-		$authModel = new AuthModel();
-		$user_id = $authModel->getCurrent()->id;
-		$this->query("INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('{$user_id}','{$ip_start}','{$ip_finish}')");
-		Log::write("INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('{$user_id}','{$ip_start}','{$ip_finish}')");
-		return $this->affected_rows();
-	}
 }

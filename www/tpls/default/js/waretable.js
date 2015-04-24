@@ -29,21 +29,13 @@ function addWareLogCtrl(name,filter,additional){
 		}
 
 		$scope.loaddata = loadData;
-		$scope.loadpages = function (){
-			loadPages( loadData	);
-		};
+		$scope.loadpages = loadPages;
 		$scope.doexport = function (format) {
 			$window.open('index.php?ctrl=warelog&action=data&from='+(page_num-1)+'&format='+format+filter($scope));
 		}
-		$scope.pagesFrom = 1;
-		$scope.pages_amount = 1;
 		$scope.ip_filter = '';
 		$scope.domain_filter = '';
 		$scope.malware_filter = '';
-		loadPages(function(){
-			$scope.pagesTo = Math.min($scope.pages_amount,10);
-			loadData(0);
-		});
 
 		$scope.$watch('pagesFrom',function(){
 			update_pages();
