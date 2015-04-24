@@ -29,6 +29,7 @@ class Subscribe extends WareLog {
 	public function index() {
 		$this->auth->checkUI();
 		$view = new SubscribeView();
+		$view->hash = $this->auth->getHash();
 		$view->display();
 	}
 }

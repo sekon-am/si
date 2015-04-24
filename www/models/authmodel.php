@@ -1,8 +1,8 @@
 <?php
-class AuthModel extends Model {
+class AuthModel extends AbstractAuthModel {
 	public function __construct() {
 		parent::__construct();
-		session_start();
+		$this->loginJs = 'login';
 	}
 	public function login($login,$pass) {
 		$pass = md5($pass);
@@ -32,6 +32,12 @@ class AuthModel extends Model {
 			$hash = $_SESSION['hash'];
 			$users = $this->query("SELECT * FROM users WHERE hash='{$hash}'");
 			return $users[0];
+		}
+		return null;
+	}
+	public function getCurrentHash() {
+		if(isset($_SESSION['hash'])){
+			return $_SESSION['hash'];
 		}
 		return null;
 	}

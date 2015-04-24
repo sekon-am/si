@@ -9,4 +9,4 @@
 			<button class="btn btn-lg btn-primary" ng-click="dologin()">Enter</button>
 		</form>
 		</div>
-		<script src="<?php $this->printTplDir(); ?>js/login.js"></script>
+		<script src="<?php $this->printTplDir(); ?>js/<?php echo $this->loginJs; ?>.js"></script>

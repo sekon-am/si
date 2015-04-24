@@ -82,13 +82,16 @@ body{
 	display:inline-block;
 	margin-right:50px;
 }
-.ip-range-del{
+.glyphicon-remove{
 	color:#2E6DA4;
 }
-.ip-range-del:hover{
+.glyphicon-remove:hover{
 	cursor:pointer;
 	color:red;
 }
 .ip-range{
 	cursor:pointer;
+}
+.ib{
+	display:inline-block;
 }

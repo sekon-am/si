@@ -1,13 +1,17 @@
 <?php
 class Auth extends Ctrl {
-	private $model;
+	protected $model;
 	public function __construct() {
 		parent::__construct();
+		$this->initModel();
+	}
+	protected function initModel() {
 		$this->model = new AuthModel();
 	}
 	public function loginform() {
 		$view = new LoginView();
-		$view -> display();
+		$view->loginJs = $this->model->getLoginJs();
+		$view->display();
 	}
 	public function login() {
 		$res = null;
@@ -17,7 +21,7 @@ class Auth extends Ctrl {
 			if( $this->model->login($login,$pass) ) {
 				$res->done = true;
 			}else{
-				$res->error = "User with typed login/pass doesn't exist";
+				$res->error = "Wrong login/pass";
 			}
 		}else{
 			$res->error = "Login or password is empty";
@@ -38,5 +42,15 @@ class Auth extends Ctrl {
 			$this->loginform();
 			die();
 		}
+	}
+	public function index() {
+		$this->checkUI();
+		$ctrl = Config::$default['ctrl'];
+		$action = Config::$default['action'];
+		$ctrl = new $ctrl;
+		$ctrl->$action();
+	}
+	public function getHash() {
+		return $this->model->getCurrentHash();
 	}
 }
