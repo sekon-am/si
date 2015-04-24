@@ -26,4 +26,7 @@ class Model {
 			return $ret;
 		}
 	}
+	protected function affected_rows() {
+		return $this->db->affected_rows;
+	}
 }

@@ -1,0 +1,47 @@
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1AND ('undefined' <= ip)AND (ip <= 'undefined')
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1
+SELECT * FROM sfp WHERE 1 LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1 AND ('1' <= ip) AND (ip <= '2')
+SELECT * FROM sfp WHERE 1 AND ('1' <= ip) AND (ip <= '2') LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1 AND ('1.0.134' <= ip) AND (ip <= '2')
+SELECT * FROM sfp WHERE 1 AND ('1.0.134' <= ip) AND (ip <= '2') LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1 AND ('1.0.134' <= ip) AND (ip <= '1.0.134')
+SELECT * FROM sfp WHERE 1 AND ('1.0.134' <= ip) AND (ip <= '1.0.134') LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1 AND ('1.0.133' <= ip) AND (ip <= '1.0.134')
+SELECT * FROM sfp WHERE 1 AND ('1.0.133' <= ip) AND (ip <= '1.0.134') LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1 AND ('1.0.133' <= ip) AND (ip <= '1.0.134.0')
+SELECT * FROM sfp WHERE 1 AND ('1.0.133' <= ip) AND (ip <= '1.0.134.0') LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1 AND ('1.0.133' <= ip) AND (ip <= '1.0.134.1')
+SELECT * FROM sfp WHERE 1 AND ('1.0.133' <= ip) AND (ip <= '1.0.134.1') LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1 AND ('1.0.133' <= ip) AND (ip <= '1.0.134.255')
+SELECT * FROM sfp WHERE 1 AND ('1.0.133' <= ip) AND (ip <= '1.0.134.255') LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1 AND ('1.0.133' <= ip) AND (ip <= '1.0.134.255')
+SELECT * FROM sfp WHERE 1 AND ('1.0.133' <= ip) AND (ip <= '1.0.134.255') LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1
+SELECT * FROM sfp WHERE 1 LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1
+SELECT * FROM sfp WHERE 1 LIMIT 0,50
+SELECT * FROM sfp WHERE 1 LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1
+SELECT * FROM sfp WHERE 1 LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1
+SELECT * FROM sfp WHERE 1 LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1
+SELECT * FROM sfp WHERE 1 LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1
+SELECT * FROM sfp WHERE 1 LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1
+SELECT * FROM sfp WHERE 1 LIMIT 0,50
+SELECT COUNT(*) as `amount` FROM sfp WHERE 1 AND ('1.0.132' <= ip) AND (ip <= '1.0.134')
+SELECT * FROM sfp WHERE 1 AND ('1.0.132' <= ip) AND (ip <= '1.0.134') LIMIT 0,50
+INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('1','','')
+INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('1','','')
+INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('1','234','234')
+INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('1','234','234')
+INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('1','234','234')
+INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('1','234','234')
+INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('1','234','234')
+INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('1','234','234')
+INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('1','234','234')
+INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('1','234','234')
+INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('1','234','234')

@@ -13,7 +13,9 @@ class WareLog extends Ctrl {
 		$ip = Input::get('ip_filter');
 		$domain = Input::get('domain_filter');
 		$malware = Input::get('malware_filter');
-		$rowsAmount = $this->model->rowsAmount($ip,$domain,$malware);
+		$ip_start = Input::get('ip_start');
+		$ip_finish = Input::get('ip_finish');
+		$rowsAmount = $this->model->rowsAmount($ip,$domain,$malware,$ip_start,$ip_finish);
 		$pagesAmount = ceil($rowsAmount / Config::SETS_PER_PAGE);
 		$obj->pages_amount = $pagesAmount;
 		$obj->rows_per_page = Config::SETS_PER_PAGE;
@@ -25,8 +27,10 @@ class WareLog extends Ctrl {
 		$ip = Input::get('ip_filter');
 		$domain = Input::get('domain_filter');
 		$malware = Input::get('malware_filter');
+		$ip_start = Input::get('ip_start');
+		$ip_finish = Input::get('ip_finish');
 		$format = Input::get('format');
-		$data = $this->model->sliceData( $from,$ip,$domain,$malware );
+		$data = $this->model->sliceData( $from,$ip,$domain,$malware,$ip_start,$ip_finish,!$format );
 		if($format){
 			foreach($data as $el){
 				unset($el->id);
@@ -53,5 +57,20 @@ class WareLog extends Ctrl {
 		$this->auth->checkUI();
 		$view = new WareLogView();
 		$view->display();
+	}
+	public function subscribe() {
+		$this->auth->checkUI();
+		$view = new WareLogView('subscribe');
+		$view->display();
+	}
+	public function addsubscr() {
+		$this->auth->check();
+		$ip_start = Input::get('ip_start');
+		$ip_finish = Input::get('ip_finish');
+		return new Obj(
+			array(
+				'affected'=>$this->model->addSubscr($ip_start,$ip_finish)
+			)
+		);
 	}
 }

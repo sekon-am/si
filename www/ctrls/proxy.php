@@ -51,7 +51,7 @@ class Proxy extends Ctrl {
 	}
 	private function addLn($ln) {
 		if( ($ln = trim($ln)) && ($ln{0} != '#') ) {
-			$this->model->add(explode(',',$ln));
+			$this->model->add(explode(':',$ln));
 		}
 	}
 	function import() {

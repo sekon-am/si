@@ -27,4 +27,12 @@ class AuthModel extends Model {
 		}
 		return (isset($_SESSION['hash']) || $hash) ? TRUE : FALSE;
 	}
+	public function getCurrent() {
+		if(isset($_SESSION['hash'])){
+			$hash = $_SESSION['hash'];
+			$users = $this->query("SELECT * FROM users WHERE hash='{$hash}'");
+			return $users[0];
+		}
+		return null;
+	}
 }

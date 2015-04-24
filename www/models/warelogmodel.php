@@ -1,6 +1,6 @@
 <?php
 class WareLogModel extends Model {
-	public function rowsAmount($ip='',$domain='',$malware='') {
+	public function rowsAmount($ip='',$domain='',$malware='',$ip_start='',$ip_finish='') {
 		$sql = "SELECT COUNT(*) as `amount` FROM sfp WHERE 1";
 		if($ip) {
 			$sql .= ' AND (ip LIKE "'.$ip.'%")';
@@ -11,15 +11,30 @@ class WareLogModel extends Model {
 		if($malware) {
 			$sql .= ' AND (diagnostic LIKE "'.$malware.'%")';
 		}
+		if($ip_start) {
+			$sql .= " AND ('{$ip_start}' <= ip)";
+		}
+		if($ip_finish) {
+			$sql .= " AND (ip <= '{$ip_finish}')";
+		}
 		$res = $this->query($sql);
 		return $res[0]->amount;
 	}
-	public function sliceData($from,$ip='',$domain='',$malware='') {
+	public function sliceData($from,$ip='',$domain='',$malware='',$ip_start='',$ip_finish='',$is_limited=TRUE) {
 		$sql = "SELECT * FROM sfp WHERE 1";
 		if($ip) $sql .= ' AND (ip LIKE "'.$ip.'%")';
 		if($domain) $sql .= ' AND (domain LIKE "'.$domain.'%")';
 		if($malware) $sql .= ' AND (diagnostic LIKE "'.$malware.'%")';
-		$data = $this->query($sql . " LIMIT {$from}," . Config::SETS_PER_PAGE);
+		if($ip_start) {
+			$sql .= " AND ('{$ip_start}' <= ip)";
+		}
+		if($ip_finish) {
+			$sql .= " AND (ip <= '{$ip_finish}')";
+		}
+		if($is_limited){
+			$sql .= " LIMIT {$from}," . Config::SETS_PER_PAGE;
+		}
+		$data = $this->query($sql);
 		$i = 1;
 		foreach($data as &$el){
 			$el->num = $from + $i++;
@@ -31,5 +46,12 @@ class WareLogModel extends Model {
 			unset($el->diagnostic);
 		}
 		return $data;
+	}
+	public function addSubscr($ip_start,$ip_finish) {
+		$authModel = new AuthModel();
+		$user_id = $authModel->getCurrent()->id;
+		$this->query("INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('{$user_id}','{$ip_start}','{$ip_finish}')");
+		Log::write("INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('{$user_id}','{$ip_start}','{$ip_finish}')");
+		return $this->affected_rows();
 	}
 }
