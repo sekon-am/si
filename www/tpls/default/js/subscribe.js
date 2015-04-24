@@ -2,7 +2,7 @@
 (function(){
 	var first_time = true;
 	function filter($scope) {
-		return (($scope.ip_start) ? '&ip_start=' + $scope.ip_start : '') + (($scope.ip_finish) ? '&ip_finish='+$scope.ip_finish : '');
+		return (($scope.ip_start) ? '&ip_start=' + $scope.ip_start : '') + (($scope.ip_finish) ? '&ip_finish='+$scope.ip_finish : '') + (($scope.cidr) ? '&cidr='+$scope.cidr : '');
 	}
 	addWareLogCtrl('Subscribe',filter,function ($scope,$http) {
 		$http.get('index.php?ctrl=subscribe&action=lst').success(

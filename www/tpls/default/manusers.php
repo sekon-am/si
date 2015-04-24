@@ -1,5 +1,5 @@
 		<div class="jumbotron" ng-app="manusers" ng-controller="ManusersCtrl">
-			<h1>Proxies Feed</h1>
+			<h1>Users</h1>
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -20,7 +20,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<h2>Add user</h2>
+			<h2>New user</h2>
 			<div class="alert alert-danger" role="alert" ng-if="adderror">{{adderror}}</div>
 			<form class="form-inline">
 				<div class="form-group">
@@ -39,7 +39,7 @@
 					<label class="sr-only" for="user-repass"></label>
 					<input type="password" class="form-control" id="user-repass" placeholder="Re-password" ng-model="repass">
 				</div>
-				<button class="btn btn-default" ng-click="adduser()">Submit</button>
+				<button class="btn btn-default" ng-click="adduser()">Add</button>
 			</form>
 			<script src="<?php $this->printTplDir(); ?>js/manusers.js"></script>
 		</div>

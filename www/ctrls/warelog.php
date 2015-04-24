@@ -13,8 +13,14 @@ class WareLog extends Ctrl {
 		$ip = Input::get('ip_filter');
 		$domain = Input::get('domain_filter');
 		$malware = Input::get('malware_filter');
-		$ip_start = Input::get('ip_start');
-		$ip_finish = Input::get('ip_finish');
+		if($cidr = Input::get('cidr')){
+			$ips = SubscribeModel::cidr2range($cidr);
+			$ip_start = $ips->ip_start;
+			$ip_finish = $ips->ip_finish;
+		}else{
+			$ip_start = Input::get('ip_start');
+			$ip_finish = Input::get('ip_finish');
+		}
 		$rowsAmount = $this->model->rowsAmount($ip,$domain,$malware,$ip_start,$ip_finish);
 		$pagesAmount = ceil($rowsAmount / Config::SETS_PER_PAGE);
 		$obj->pages_amount = $pagesAmount;
@@ -26,8 +32,14 @@ class WareLog extends Ctrl {
 		$ip = Input::get('ip_filter');
 		$domain = Input::get('domain_filter');
 		$malware = Input::get('malware_filter');
-		$ip_start = Input::get('ip_start');
-		$ip_finish = Input::get('ip_finish');
+		if($cidr = Input::get('cidr')){
+			$ips = SubscribeModel::cidr2range($cidr);
+			$ip_start = $ips->ip_start;
+			$ip_finish = $ips->ip_finish;
+		}else{
+			$ip_start = Input::get('ip_start');
+			$ip_finish = Input::get('ip_finish');
+		}
 		if($format = Input::get('format')){
 			set_time_limit(0);
 			$rowsAmount = $this->model->rowsAmount($ip,$domain,$malware,$ip_start,$ip_finish);

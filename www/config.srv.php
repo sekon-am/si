@@ -1,9 +1,9 @@
 <?php
 class Config {
 	const DB_HOST = 'localhost';
-	const DB_USER = 'root';
-	const DB_PASS = 'kiotemotemambasamba';
-	const DB_NAME = 'sfp';
+	const DB_USER = 'si';
+	const DB_PASS = 'asdasopfjm242';
+	const DB_NAME = 'si';
 	public static $default = array(
 		'ctrl' => 'WareLog',
 		'action' => 'index',

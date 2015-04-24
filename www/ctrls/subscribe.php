@@ -7,8 +7,14 @@ class Subscribe extends WareLog {
 	}
 	public function add() {
 		$this->auth->check();
-		$ip_start = Input::get('ip_start');
-		$ip_finish = Input::get('ip_finish');
+		if($cidr = Input::get('cidr')){
+			$ips = SubscribeModel::cidr2range($cidr);
+			$ip_start = $ips->ip_start;
+			$ip_finish = $ips->ip_finish;
+		}else{
+			$ip_start = Input::get('ip_start');
+			$ip_finish = Input::get('ip_finish');
+		}
 		Response::json( 
 			$this->model->get( 
 				$this->model->add($ip_start,$ip_finish) 

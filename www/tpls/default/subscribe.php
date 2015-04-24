@@ -9,12 +9,18 @@
 			</ul>
 			<form class="form-inline">
 				<div class="form-group">
-					<label class="sr-only" for="ip_start">IP from</label>
-					<input type="text" class="form-control" id="ip_start" ng-model="ip_start" placeholder="IP range start">
+					<label class="sr-only" for="cidr">CIDR format</label>
+					<input type="text" class="form-control" id="cidr" ng-model="cidr" placeholder="000.000.000.000/32">
 				</div>
+				<span>or</span>
+				<div class="form-group">
+					<label class="sr-only" for="ip_start">IP from</label>
+					<input type="text" class="form-control" id="ip_start" ng-model="ip_start" placeholder="000.000.000.000">
+				</div>
+				<span>-</span>
 				<div class="form-group">
 					<label class="sr-only" for="ip_finish">IP to</label>
-					<input type="text" class="form-control" id="ip_finish" ng-model="ip_finish" placeholder="IP range finish">
+					<input type="text" class="form-control" id="ip_finish" ng-model="ip_finish" placeholder="000.000.000.000">
 				</div>
 				<button type="button" class="btn btn-default" ng-click="filtereddata()">Search</button>
 				<button type="button" class="btn btn-primary" ng-click="dosubscribe()">Subscribe</button>
