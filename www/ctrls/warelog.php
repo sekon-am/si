@@ -79,4 +79,11 @@ class WareLog extends Ctrl {
 		$view = new WareLogView();
 		$view->display();
 	}
+	public function cidr2range() {
+		Response::json(
+			SubscribeModel::cidr2range( 
+				Input::get('cidr') 
+			)
+		);
+	}
 }

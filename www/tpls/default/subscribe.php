@@ -15,12 +15,12 @@
 				<span>or</span>
 				<div class="form-group">
 					<label class="sr-only" for="ip_start">IP from</label>
-					<input type="text" class="form-control" id="ip_start" ng-model="ip_start" placeholder="000.000.000.000">
+					<input type="text" class="form-control" id="ip_start" ng-model="ip_start" ng-change="rangechange()" placeholder="000.000.000.000">
 				</div>
 				<span>-</span>
 				<div class="form-group">
 					<label class="sr-only" for="ip_finish">IP to</label>
-					<input type="text" class="form-control" id="ip_finish" ng-model="ip_finish" placeholder="000.000.000.000">
+					<input type="text" class="form-control" id="ip_finish" ng-model="ip_finish" ng-change="rangechange()" placeholder="000.000.000.000">
 				</div>
 				<button type="button" class="btn btn-default" ng-click="filtereddata()">Search</button>
 				<button type="button" class="btn btn-primary" ng-click="dosubscribe()">Subscribe</button>

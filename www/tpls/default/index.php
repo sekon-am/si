@@ -18,7 +18,6 @@
 		<![endif]-->
 		<link href="<?php $this->printTplDir(); ?>css/flag-icon.min.css" rel="stylesheet">
 		<link href="<?php $this->printTplDir(); ?>css/style.css" rel="stylesheet">
-		<link href="httl://ecrime.intelcrawler.com/css/style.css" rel="stylesheet">
 		<script src="<?php $this->printTplDir(); ?>js/angular.js"></script>
 	</head>
 <body>

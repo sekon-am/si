@@ -22,21 +22,21 @@ sub insert_rows {
 
 while(my $row = <$file>){
 	$size += length $row;
-#	print "\rProcessed "
-#		.sprintf("%.1f", $size/BYTES_MB)." Mb / "
-#		.sprintf("%.1f", $filesize/BYTES_MB)." MB";
+	print "\rProcessed "
+		.sprintf("%.1f", $size/BYTES_MB)." Mb / "
+		.sprintf("%.1f", $filesize/BYTES_MB)." MB";
 	next if(substr($row,0,1) eq '#');
 	insert_rows if (scalar @rows >= ROWS_PER_REQUEST);
 	chomp $row;
 	my @params = split(',',$row);
 	splice @params, -2;
+	$params[0] = prepare_ip($params[0]);
 	$params[6] = strftime("%Y-%m-%d %H:%I:%S",localtime($params[6]));
 	$params[7] =~ s/BOT type \d+\s*//i;
 	$params[7] = substr($params[7],2) if(substr($params[7],1,1) eq '_');
 	$params[7] =~ s/\s*n\/a//ig;
 	$params[7] =~ s/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d+)\s+\d+/$1/ig;
 	if($params[7] =~ /^[\w\d_\-]+\s+(((\d{1,3}\.){3}\d{1,3})|(([\w\d_\-]+\.)+\w{3,5}))\s+\d+(\s+(((\d{1,3}\.){3}\d{1,3})|(([\w\d_\-]+\.)+\w{3,5}))){0,1}$/i){
-print $params[7]."\n";
 		push @rows, "('".join("','",map { $_ =~ s/(['"])/\\$1/ig; $_ } @params)."')";
 	}
 }

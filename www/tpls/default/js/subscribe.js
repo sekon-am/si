@@ -11,6 +11,7 @@
 			}
 		);
 		$scope.dosubscribe = function () {
+			cidr2range();
 			$http.get('index.php?ctrl=subscribe&action=add'+filter($scope)).success(
 				function(data){
 					$scope.ranges.push(data);
@@ -27,6 +28,7 @@
 			}
 		};
 		$scope.filtereddata = function(){
+			cidr2range();
 			$scope.loadpages(
 				function(){
 					if(first_time){
@@ -34,13 +36,28 @@
 						$scope.pagesTo = Math.min($scope.pages_amount,10);
 						first_time=false;
 					}
-					$scope.loaddata(0);
+					$scope.loaddata(1);
 				}
 			);
 		};
 		$scope.setrange = function(start,finish) {
 			$scope.ip_start = start;
 			$scope.ip_finish = finish;
+			$scope.cidr = '';
+			$scope.filtereddata()	;
+		}
+		function cidr2range() {
+			if($scope.cidr) {
+				$http.get('index.php?ctrl=warelog&action=cidr2range&cidr='+$scope.cidr).success(
+					function (data){
+						$scope.ip_start = data.ip_start;
+						$scope.ip_finish = data.ip_finish;
+					}
+				);
+			}
+		}
+		$scope.rangechange = function () {
+			$scope.cidr = '';
 		}
 	});
 })();

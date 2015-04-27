@@ -31,7 +31,7 @@ while( my $user = $quser->fetchrow_hashref() ){
 	my $qsubscr = $dbh->prepare("SELECT * FROM subscription WHERE user_id='".$user->{'id'}."'");
 	$qsubscr->execute();
 	while(my $subscr = $qsubscr->fetchrow_hashref()){
-		my $qlogs = $dbh->prepare("SELECT COUNT(*) as amount FROM sfp WHERE ('".$subscr->{'ip_start'}."'<=ip) AND (ip<='".$subscr->{'ip_finish'}."')");
+		my $qlogs = $dbh->prepare("SELECT COUNT(*) as amount FROM sfp WHERE ('".prepare_ip( $subscr->{'ip_start'} )."'<=ip) AND (ip<='".prepare_ip( $subscr->{'ip_finish'} )."')");
 		$qlogs->execute();
 		if(my $log = $qlogs->fetchrow_hashref()){
 			if(my $cnt = $log->{'amount'}){
