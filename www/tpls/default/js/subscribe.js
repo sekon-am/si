@@ -35,7 +35,7 @@
 			$scope.ip_finish = finish;
 			$scope.cidr = '';
 			$scope.filtereddata();
-		}
+		};
 		function cidr2range() {
 			if($scope.cidr) {
 				$http.get('index.php?ctrl=warelog&action=cidr2range&cidr='+$scope.cidr).success(
@@ -45,7 +45,7 @@
 					}
 				);
 			}
-		}
+		};
 		$scope.rangechange = function () {
 			$scope.cidr = '';
 		};
@@ -62,7 +62,6 @@
 			});
 		};
 		$scope.proxy_loaddata = function () {
-			console.log($scope.page_num111);
 			$http.get('index.php?ctrl=proxy&action=data&from='+($scope.proxy_page_num-1)+filter($scope)).success( 
 				function(data) {
 					$scope.proxies = data;
@@ -70,5 +69,5 @@
 			);
 		};
 	},
-	['ui.bootstrap']);
+	[]);
 })();

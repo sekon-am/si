@@ -25,38 +25,43 @@
 				<button type="button" class="btn btn-default" ng-click="filtereddata()">Search</button>
 				<button type="button" class="btn btn-primary" ng-click="dosubscribe()">Subscribe</button>
 			</form>
-			<tabset>
-				<tab heading="Infections Feed">
+			<div role="tabpanel">
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a href="#warelog-panel" aria-controls="warelog-panel" role="tab" data-toggle="tab">Infections feed</a></li>
+					<li role="presentation"><a href="#proxies-panel" aria-controls="proxies-panel" role="tab" data-toggle="tab">Proxies feed</a></li>
+				</ul>
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="warelog-panel">
 <?php $this->loadWareTable(); ?>
-				</tab>
-				<tab heading="Proxies Feed">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>IP</th>
-								<th>Port</th>
-								<th>Proxy Server</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="proxy in proxies">
-								<th scope="row">{{proxy.num}}</th>
-								<td>{{proxy.ip}}</td>
-								<td>{{proxy.port}}</td>
-								<td>{{proxy.srv}}</td>
-							</tr>
-						</tbody>
-					</table>
-	<input type="number" step="1" ng-model="page_num111" min="1" max="{{pages_amount}}" ng-change="loaddata()">
-					<div>
-						<span>Go to (1-{{proxy_pages_amount}}) 
-							<input type="number" ng-model="proxy_page_num1" min="1" max="{{proxy_pages_amount}}" step="1" ng-change="proxy_loaddata()">
-						</span>
 					</div>
-				</tab>
-			</tabset>
-			<script src="<?php $this->printTplDir(); ?>js/ui-bootstrap-tpls-0.12.1.js"></script>
+					<div role="tabpanel" class="tab-pane" id="proxies-panel">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>IP</th>
+									<th>Port</th>
+									<th>Proxy Server</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="proxy in proxies">
+									<th scope="row">{{proxy.num}}</th>
+									<td>{{proxy.ip}}</td>
+									<td>{{proxy.port}}</td>
+									<td>{{proxy.srv}}</td>
+								</tr>
+							</tbody>
+						</table>
+						<div>
+							<span>Go to (1-{{proxy_pages_amount}}) 
+								<input type="number" ng-model="proxy_page_num" min="1" max="{{proxy_pages_amount}}" step="1" ng-change="proxy_loaddata()">
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
 			<script src="<?php $this->printTplDir(); ?>js/subscribe.js"></script>
-			</script>
+			<script src="<?php $this->printTplDir(); ?>js/jquery-1.11.2.min.js"></script>
+			<script src="<?php $this->printTplDir(); ?>js/bootstrap.min.js"></script>
 		</div>
