@@ -31,7 +31,6 @@ class WareLogModel extends Model {
 	}
 	public function rowsAmount($ip='',$domain='',$malware='',$ip_start='',$ip_finish='') {
 		$sql = "SELECT COUNT(*) as `amount` FROM sfp" . $this->makeWhere($ip,$domain,$malware,$ip_start,$ip_finish);
-		die($sql);
 		$res = $this->query($sql);
 		return $res[0]->amount;
 	}

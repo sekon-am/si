@@ -31,7 +31,7 @@
 				</tbody>
 			</table>
 			<div>
-				<span>Page number (1-{{pages_amount}}) 
+				<span>Go to (1-{{pages_amount}}) 
 					<input type="number" ng-model="page_num" min="1" max="{{pages_amount}}" step="1" ng-change="loaddata()">
 				</span>
 			</div>

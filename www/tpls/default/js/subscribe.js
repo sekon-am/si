@@ -1,9 +1,7 @@
 'use strict';
 (function(){
-	var first_time = true;
-	function filter($scope) {
-		return (($scope.ip_start) ? '&ip_start=' + $scope.ip_start : '') + (($scope.ip_finish) ? '&ip_finish='+$scope.ip_finish : '') + (($scope.cidr) ? '&cidr='+$scope.cidr : '');
-	}
+	var first_time = true,
+		filter = make_filter('ip_start','ip_finish','cidr');
 	addWareLogCtrl('Subscribe',filter,function ($scope,$http) {
 		$http.get('index.php?ctrl=subscribe&action=lst').success(
 			function(data) {
@@ -29,22 +27,14 @@
 		};
 		$scope.filtereddata = function(){
 			cidr2range();
-			$scope.loadpages(
-				function(){
-					if(first_time){
-						$scope.pagesFrom = 1;
-						$scope.pagesTo = Math.min($scope.pages_amount,10);
-						first_time=false;
-					}
-					$scope.loaddata(1);
-				}
-			);
+			$scope.loadpages();
+			$scope.proxy_loadpages();
 		};
 		$scope.setrange = function(start,finish) {
 			$scope.ip_start = start;
 			$scope.ip_finish = finish;
 			$scope.cidr = '';
-			$scope.filtereddata()	;
+			$scope.filtereddata();
 		}
 		function cidr2range() {
 			if($scope.cidr) {
@@ -58,6 +48,27 @@
 		}
 		$scope.rangechange = function () {
 			$scope.cidr = '';
-		}
-	});
+		};
+		$scope.proxy_loadpages = function () {
+			$http.get('index.php?ctrl=proxy&action=pages'+filter($scope)).success(function(data){
+				$scope.proxy_pages_amount = Math.max(1,data.pages_amount);
+				if(! $scope.proxy_page_num){
+					$scope.proxy_page_num = 1;
+				}
+				if( $scope.proxy_page_num > $scope.proxy_pages_amount ) {
+					$scope.proxy_page_num = $scope.proxy_pages_amount;
+				}
+				$scope.proxy_loaddata();
+			});
+		};
+		$scope.proxy_loaddata = function () {
+			console.log($scope.page_num111);
+			$http.get('index.php?ctrl=proxy&action=data&from='+($scope.proxy_page_num-1)+filter($scope)).success( 
+				function(data) {
+					$scope.proxies = data;
+				}
+			);
+		};
+	},
+	['ui.bootstrap']);
 })();

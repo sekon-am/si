@@ -27,18 +27,8 @@
 				</tbody>
 			</table>
 			<div>
-				<span>Start pages from 
-					<input type="number" step="1" ng-model="pagesFrom" min="1" max="{{pagesTo}}">
-				</span>
-				<span>Finish pages at 
-					<input type="number" step="1" ng-model="pagesTo" min="{{pagesFrom}}" max="{{pages_amount}}">
+				<span>Go to (1-{{pages_amount}})
+					<input type="number" step="1" ng-model="page_num" min="1" max="{{pages_amount}}" ng-change="loaddata()">
 				</span>
 			</div>
-			<nav>
-				<ul class="pagination">
-					<li ng-repeat="page in pages" class="{{page.clss}}">
-						<a ng-click="loaddata(page.num)">{{page.num}}</a>
-					</li>
-				</ul>
-			</nav>
 			<script src="<?php $this->printTplDir(); ?>js/waretable.js"></script>
