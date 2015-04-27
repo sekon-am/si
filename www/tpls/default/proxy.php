@@ -1,5 +1,12 @@
 		<div class="jumbotron" ng-app="proxy" ng-controller="ProxyCtrl">
 			<h1>Proxies Feed</h1>
+			<form class="form-inline">
+				<div class="form-group">
+					<label class="sr-only" for="ip_filter">IP address</label>
+					<input type="text" class="form-control" id="ip_filter" ng-model="ip_filter" placeholder="Enter IP filter">
+				</div>
+				<button type="button" class="btn btn-primary" ng-click="dosearch()">Search</button>
+			</form>
 			<div>
 				<div class="export-format-btn export-format-txt" ng-click="doexport('txt')"></div>
 				<div class="export-format-btn export-format-json" ng-click="doexport('json')"></div>

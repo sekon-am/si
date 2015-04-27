@@ -1,21 +1,42 @@
 'use strict';
 angular.module('proxy',['angularFileUpload'])
 .controller('ProxyCtrl',['$scope', '$http', '$window', '$upload', function($scope, $http, $window, $upload) {
-	function loadPages(callback) {
-		$http.get('index.php?ctrl=proxy&action=pages').success(function(data){
+	function make_filter() {
+		var args = arguments;
+		return function () {
+			var res = '';
+			for(var i=0;i<args.length;i++){
+				var name = args[i];
+				if( $scope[name] !== undefined ) {
+					res += '&' + name + '=' + $scope[name];
+				}
+			}
+			return res;
+		}
+	}
+	var filter = make_filter('ip_filter','ip_start','ip_finish');
+	$scope.loadpages = function (callback) {
+		$http.get('index.php?ctrl=proxy&action=pages'+filter()).success(function(data){
 			$scope.pages_amount = Math.max(1,data.pages_amount);
-			$scope.page_num = Math.max(1,Math.min($scope.pages_amount,$scope.page_num));
+			if(!$scope.page_num){
+				$scope.page_num = 1;
+			}
 			if(typeof callback == 'function')callback();
 		});
 	}
-	function loadData() {
-		$http.get('index.php?ctrl=proxy&action=data&from='+($scope.page_num-1)).success(function(data){
+	$scope.loaddata = function () {
+		$http.get('index.php?ctrl=proxy&action=data&from='+($scope.page_num-1)+filter()).success(function(data){
 			$scope.fieldset = data;
 		});
 	}
-	$scope.loaddata = loadData;
+	$scope.dosearch = function () {
+		if($scope.ip_filter){
+			$scope.loadpages( $scope.loaddata );
+			$scope.page_num = 1;
+		}
+	}
 	$scope.doexport = function (format) {
-		$window.open('index.php?ctrl=proxy&action=data&from='+($scope.page_num-1)+'&format='+format);
+		$window.open('index.php?ctrl=proxy&action=data&from='+($scope.page_num-1)+filter()+'&format='+format);
 	}
 	$scope.$watch('files', function () {
 		var files = $scope.files;
@@ -29,14 +50,11 @@ angular.module('proxy',['angularFileUpload'])
 					var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
 					console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
 				}).success(function (data, status, headers, config) {
-					loadPages( loadData	);
+					$scope.loadpages( $scope.loaddata );
 				});
 			}
 		}
 	});
 
-	loadPages(function(){
-		loadData();
-	});
-	
+	$scope.loadpages( $scope.loaddata );
 }]);

@@ -7,4 +7,7 @@ class Log {
 	public static function write($str) {
 		file_put_contents( self::$logFileName, $str."\n", FILE_APPEND );
 	}
+	public static function output($str) {
+		die($str);
+	}
 }
