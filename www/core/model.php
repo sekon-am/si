@@ -17,7 +17,7 @@ class Model {
 			die("Wrong SQL: {$sql}");
 		}else{
 			$ret = TRUE;
-			if($res!==TRUE){
+			if($res !== TRUE){
 				for($el = $res->fetch_object(), $ret = array(); $el != NULL; $el = $res->fetch_object()){
 					$ret []= $el;
 				}
@@ -25,6 +25,12 @@ class Model {
 			}
 			return $ret;
 		}
+	}
+	protected function queryRow($sql) {
+		if( $results = $this->query( $sql ) ) {
+			return $results[0];
+		}
+		return null;
 	}
 	protected function affected_rows() {
 		return $this->db->affected_rows;

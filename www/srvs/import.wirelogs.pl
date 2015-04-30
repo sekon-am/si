@@ -16,7 +16,7 @@ my $size = 0;
 my @rows = ();
 
 sub insert_rows {
-	$dbh->do("INSERT INTO sfp (ip,asum,routing_aggregate,country,domain,state,t,diagnostic) VALUES ".join(',',@rows));
+	$dbh->do("INSERT INTO sfp (ip,asum,routing_aggregate,country,domain,state,t,diagnostic,malware,port) VALUES ".join(',',@rows));
 	@rows = ();
 }
 
@@ -36,6 +36,8 @@ while(my $row = <$file>){
 	$params[7] = substr($params[7],2) if(substr($params[7],1,1) eq '_');
 	$params[7] =~ s/\s*n\/a//ig;
 	$params[7] =~ s/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d+)\s+\d+/$1/ig;
+	my ($malware,$ip1,$port) = split ' ', $params[7];
+	push @params, $malware, $port;
 	if($params[7] =~ /^[\w\d_\-]+\s+(((\d{1,3}\.){3}\d{1,3})|(([\w\d_\-]+\.)+\w{3,5}))\s+\d+(\s+(((\d{1,3}\.){3}\d{1,3})|(([\w\d_\-]+\.)+\w{3,5}))){0,1}$/i){
 		push @rows, "('".join("','",map { $_ =~ s/(['"])/\\$1/ig; $_ } @params)."')";
 	}

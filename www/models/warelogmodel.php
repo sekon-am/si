@@ -29,6 +29,13 @@ class WareLogModel extends Model {
 		$el->ip2 = (count($diagnostic)>3)?$diagnostic[3]:'';
 		unset($el->diagnostic);
 	}
+	private function prepareRows(&$rows,$from) {
+		$i = 1;
+		foreach($rows as &$el){
+			$this->prepareRow($el,$from + $i++);
+		}
+		return $rows;
+	}
 	public function rowsAmount($ip='',$domain='',$malware='',$ip_start='',$ip_finish='') {
 		$sql = "SELECT COUNT(*) as `amount` FROM sfp" . $this->makeWhere($ip,$domain,$malware,$ip_start,$ip_finish);
 		$res = $this->query($sql);
@@ -39,10 +46,6 @@ class WareLogModel extends Model {
 		if( !$limit ) $limit = Config::SETS_PER_PAGE;
 		$sql .= " LIMIT {$from}," . $limit;
 		$data = $this->query($sql);
-		$i = 1;
-		foreach($data as &$el){
-			$this->prepareRow($el,$from + $i++);
-		}
-		return $data;
+		return $this->prepareRows( $data, $from );
 	}
 }

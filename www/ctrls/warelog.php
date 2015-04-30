@@ -41,6 +41,17 @@ class WareLog extends Ctrl {
 			)
 		);
 	}
+	private function sliceData($from) {
+		return $this->model->sliceData( 
+			$from,
+			$this->params['ip'],
+			$this->params['domain'],
+			$this->params['malware'],
+			$this->params['ip_start'],
+			$this->params['ip_finish'],
+			Config::ROWS_FORMAT
+		);
+	}
 	public function data() {
 		$this->auth->check();
 		$this->getParams();
@@ -53,38 +64,63 @@ class WareLog extends Ctrl {
 				$this->params['ip_start'],
 				$this->params['ip_finish']
 			);
-			for( $from = 0; $from < $rowsAmount; $from += Config::ROWS_FORMAT ){
-				$data = $this->model->sliceData( 
-					$from,
-					$this->params['ip'],
-					$this->params['domain'],
-					$this->params['malware'],
-					$this->params['ip_start'],
-					$this->params['ip_finish'],
-					Config::ROWS_FORMAT 
-				);
-				switch($format){
-					case 'txt':
-						$txt = '';
+			switch($format){
+				case 'txt':
+					header('Content-Type: text/plain');
+					for( $from = 0; $from < $rowsAmount; $from += Config::ROWS_FORMAT ){
+						$data = $this->sliceData($from);
 						foreach($data as $row){
-							$txt .= implode(',',(array)$row) . "\n";
+							echo implode(',',(array)$row) . "\n";
 						}
-						Response::text($txt);
-						break;
-					case 'cc':
-						$txt = '';
+					}
+					break;
+				case 'cc':
+					header('Content-Type: text/plain');
+					for( $from = 0; $from < $rowsAmount; $from += Config::ROWS_FORMAT ){
+						$data = $this->sliceData($from);
+						$dataCC = array();
 						foreach($data as $row)if($row->ip2){
-							$txt .= $row->ip2 . "\n";
+							$dataCC[ $row->ip2 ] = $row->method;
 						}
-						Response::text($txt);
-						break;
-					case 'xml':
-						Response::xml($data);
-						break;
-					case 'json':
-					default:
-						Response::json($data);
-				}
+						$txt = '';
+						foreach($dataCC as $key => $val) {
+							$txt .= $key.','.$val."\n";
+						}
+						echo $txt;
+					}
+					break;
+				case 'xml':
+					header('Content-Type: application/xhtml+xml');
+					echo "<?xml version=\"1.0\"?>\n<security_feed>\n";
+					for( $from = 0; $from < $rowsAmount; $from += Config::ROWS_FORMAT ){
+						$data = $this->sliceData($from);
+						foreach($data as $el){
+							echo "\t<entry>\n";
+							foreach( $el as $key => $val ){
+								echo "\t\t<{$key}>{$val}</{$key}>\n";
+							}
+							echo "\t</entry>\n";
+						}
+					}
+					echo '</security_feed>'."\n";
+					break;
+				case 'json':
+				default:
+					header('Content-type: application/json');
+					echo '[';
+					$first = true;
+					for( $from = 0; $from < $rowsAmount; $from += Config::ROWS_FORMAT ){
+						$data = $this->sliceData($from);
+						foreach($data as $el){
+							if($first){
+								$first = false;
+							}else{
+								echo ',';
+							}
+							echo json_encode($el);
+						}
+					}
+					echo ']';
 			}
 		}else{
 			Response::json(

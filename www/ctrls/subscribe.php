@@ -15,18 +15,28 @@ class Subscribe extends WareLog {
 			$ip_start = Input::get('ip_start');
 			$ip_finish = Input::get('ip_finish');
 		}
-		Response::json( 
-			$this->model->get( 
-				$this->model->add($ip_start,$ip_finish) 
-			)
-		);
+		if( $id = $this->model->add($ip_start,$ip_finish) ) {
+			$res = $this->model->get($id);
+		}else{
+			$res = new Obj(
+				array(
+					'id' => 0,
+					'message' => 'Range already exists',
+				)
+			);
+		}
+		Response::json($res);
 	}
 	public function del() {
 		$this->auth->check();
 		$id = Input::get('id');
-		Response::json( new Obj( array(
-			'affected'=>$this->model->del($id)
-		)));
+		Response::json( 
+			new Obj( 
+				array(
+					'affected'=>$this->model->del($id)
+				)
+			)
+		);
 	}
 	public function lst() {
 		$this->auth->check();

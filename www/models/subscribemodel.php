@@ -6,8 +6,12 @@ class SubscribeModel extends Model {
 	}
 	public function add($ip_start,$ip_finish) {
 		$user_id = $this->getCurrentUser()->id;
-		$this->query("INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('{$user_id}','{$ip_start}','{$ip_finish}')");
-		return $this->insert_id();
+		if( count( $this->query("SELECT * FROM subscription WHERE (user_id='{$user_id}') AND (ip_start='{$ip_start}') AND (ip_finish='{$ip_finish}')") ) ) {
+			return 0;
+		}else{
+			$this->query("INSERT INTO subscription (user_id, ip_start, ip_finish) VALUES ('{$user_id}','{$ip_start}','{$ip_finish}')");
+			return $this->insert_id();
+		}
 	}
 	public function del($id) {
 		$this->query("DELETE FROM subscription WHERE id='{$id}'");

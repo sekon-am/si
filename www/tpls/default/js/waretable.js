@@ -33,7 +33,7 @@ function addWareLogCtrl(name,filter,additional,modules){
 			});
 		}
 		$scope.doexport = function (format) {
-			$window.open('index.php?ctrl=warelog&action=data&from='+(page_num-1)+'&format='+format+filter($scope));
+			$window.open('index.php?ctrl=warelog&action=data&from='+($scope.page_num-1)+'&format='+format+filter($scope));
 		}
 		if(typeof additional === "function"){
 			additional($scope,$http);

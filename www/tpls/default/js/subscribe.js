@@ -8,11 +8,17 @@
 				$scope.ranges = data;
 			}
 		);
+		$scope.error = '';
 		$scope.dosubscribe = function () {
 			cidr2range();
 			$http.get('index.php?ctrl=subscribe&action=add'+filter($scope)).success(
 				function(data){
-					$scope.ranges.push(data);
+					if(data.id){
+						$scope.ranges.push(data);
+						$scope.error = '';
+					}else{
+						$scope.error = data.message;
+					}
 				}
 			);
 		};
@@ -26,6 +32,7 @@
 			}
 		};
 		$scope.filtereddata = function(){
+			$scope.error = '';
 			cidr2range();
 			$scope.loadpages();
 			$scope.proxy_loadpages();

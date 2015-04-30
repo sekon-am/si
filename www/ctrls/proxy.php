@@ -37,6 +37,15 @@ class Proxy extends Ctrl {
 			)
 		);
 	}
+	private function sliceData($from) {
+		return $this->model->sliceData( 
+			$from,
+			$this->params['ip_filter'],
+			$this->params['ip_start'],
+			$this->params['ip_finish'],
+			Config::ROWS_FORMAT
+		);
+	}
 	public function data() {
 		$this->auth->check();
 		$this->getSearchParams();
@@ -47,45 +56,57 @@ class Proxy extends Ctrl {
 				$this->params['ip_start'],
 				$this->params['ip_finish']
 			);
-			for( $from = 0; $from < $rowsAmount; $from += Config::ROWS_FORMAT ){
-				$data = $this->model->sliceData( 
-					$from,
-					$this->params['ip_filter'],
-					$this->params['ip_start'],
-					$this->params['ip_finish'],
-					Config::ROWS_FORMAT 
-				);
-				foreach($data as $el){
-					unset($el->id);
-					unset($el->num);
-				}
-				switch($format){
-					case 'txt':
-						$txt = '';
+			switch($format){
+				case 'txt':
+					header('Content-Type: text/plain');
+					for( $from = 0; $from < $rowsAmount; $from += Config::ROWS_FORMAT ){
+						$data = $this->sliceData($from);
 						foreach($data as $row){
-							$txt .= implode(',',(array)$row) . "\n";
+							unset($row->id);
+							unset($row->num);
+							echo implode(':',(array)$row) . "\n";
 						}
-						Response::text($txt);
-						break;
-					case 'cc':
-						$txt = '';
-						foreach($data as $row)if($row->ip2){
-							$txt .= $row->ip2 . "\n";
+					}
+					break;
+				case 'xml':
+					header('Content-Type: application/xhtml+xml');
+					echo "<?xml version=\"1.0\"?>\n<security_feed>\n";
+					for( $from = 0; $from < $rowsAmount; $from += Config::ROWS_FORMAT ){
+						$data = $this->sliceData($from);
+						foreach($data as $el){
+							echo "\t<entry>\n";
+							foreach( $el as $key => $val ){
+								echo "\t\t<{$key}>{$val}</{$key}>\n";
+							}
+							echo "\t</entry>\n";
 						}
-						Response::text($txt);
-						break;
-					case 'xml':
-						Response::xml($data);
-						break;
-					case 'json':
-					default:
-						Response::json($data);
-				}
+					}
+					echo '</security_feed>'."\n";
+					break;
+				case 'json':
+				default:
+					header('Content-type: application/json');
+					echo '[';
+					$first = true;
+					for( $from = 0; $from < $rowsAmount; $from += Config::ROWS_FORMAT ){
+						$data = $this->sliceData($from);
+						foreach($data as $el){
+							if($first){
+								$first = false;
+							}else{
+								echo ',';
+							}
+							unset($el->id);
+							unset($el->num);
+							echo json_encode($el);
+						}
+					}
+					echo ']';
 			}
 		}else{
 			Response::json(
-				$this->model->sliceData(
-					intval( Input::get('from') )*Config::SETS_PER_PAGE, 
+				$this->model->sliceData( 
+					intval( Input::get('from') )*Config::SETS_PER_PAGE,
 					$this->params['ip_filter'],
 					$this->params['ip_start'],
 					$this->params['ip_finish'],

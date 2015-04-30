@@ -95,3 +95,21 @@ body{
 .ib{
 	display:inline-block;
 }
+.stats h4 {
+	margin-top:25px;
+	border-bottom:1px dotted #000;
+}
+.stat-value{
+	font-weight:bold;
+	color:#1B6483;
+}
+.hosts-by-country, .hosts-by-any{
+	padding-left:0;
+	overflow:hidden;
+}
+.hosts-by-country li, .hosts-by-any li {
+	float:left;
+	width:200px;
+	margin:3px 0;
+	list-style-type: none;
+}

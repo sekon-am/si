@@ -1,6 +1,7 @@
 		<div class="jumbotron" ng-app="Subscribe" ng-controller="SubscribeCtrl">
 			<h1>Your hash: <span><?php echo $this->hash; ?></span></h1>
 			<h1>Subscribe on databse updates</h1>
+			<div class="alert alert-danger" role="alert" ng-if="error">{{error}}</div>
 			<ul class="ip-ranges">
 				<li ng-repeat="range in ranges">
 					<span ng-click="setrange(range.ip_start,range.ip_finish)" class="ip-range">{{range.ip_start}}&nbsp;..&nbsp;{{range.ip_finish}}</span>

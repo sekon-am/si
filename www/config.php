@@ -5,7 +5,7 @@ class Config {
 	const DB_PASS = '';
 	const DB_NAME = 'test';
 	public static $default = array(
-		'ctrl' => 'WareLog',
+		'ctrl' => 'Stats',
 		'action' => 'index',
 		'tpl' => 'default',
 	);

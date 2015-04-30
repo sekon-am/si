@@ -1,16 +1,23 @@
 <?php
 class Response {
+	static private $headerSent = FALSE;
+	static private function header($header) {
+		if(! self::$headerSent) {
+			self::$headerSent = TRUE;
+			header($header);
+		}
+	}
 	static public function json($data) {
-		header('Content-type: application/json');
+		self::header('Content-type: application/json');
 		echo json_encode($data);
 	}
 	static public function text($txt) {
-		header('Content-Type: text/plain');
+		self::header('Content-Type: text/plain');
 		echo $txt;
 	}
-	static public function xml($data) {
-		header('Content-Type: application/xhtml+xml');
-		echo self::arrayToXml($data);
+	static public function xml($xml) {
+		self::header('Content-Type: application/xhtml+xml');
+		echo $xml;
 	}
 	static private function arrayToXml($array, $rootElement = null, $xml = null) {
 		$_xml = $xml;
