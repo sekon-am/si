@@ -113,3 +113,6 @@ body{
 	margin:3px 0;
 	list-style-type: none;
 }
+.host-field{
+	font-weight:bold;
+}

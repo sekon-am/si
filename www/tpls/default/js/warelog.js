@@ -1,7 +1,7 @@
 'use strict';
 addWareLogCtrl(
 	'Warelog',
-	make_filter('ip_filter','ip_start','ip_finish'),
+	make_filter('ip_filter','domain_filter','malware_filter'),
 	function($scope,$http){
 		$scope.ip_filter = '';
 		$scope.domain_filter = '';

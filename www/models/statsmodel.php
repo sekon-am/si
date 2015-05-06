@@ -8,8 +8,13 @@ class StatsModel extends Model {
 	}
 	public function hostsByCountry() {
 		$stats = $this->hostsBy('country');
-		foreach( $stats as $stat ){
+		for( $i=0; $i<count($stats); $i++ ){
+			$stat = $stats[$i];
 			$stat->country = strtolower( $stat->country );
+			if( !preg_match('~\w+~i', $stat->country) || !file_exists('./tpls/'.Config::$default['tpl'].'/flags/4x3/'.$stat->country.'.svg') ){
+				array_splice( $stats, $i, 1 );
+				$i--;
+			}
 		}
 		return $stats;
 	}
