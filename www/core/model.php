@@ -18,6 +18,7 @@ class Model {
 		}else{
 			$ret = TRUE;
 			if($res !== TRUE){
+				$ret = array();
 				for($el = $res->fetch_object(), $ret = array(); $el != NULL; $el = $res->fetch_object()){
 					$ret []= $el;
 				}

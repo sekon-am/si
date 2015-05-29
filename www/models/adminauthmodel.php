@@ -17,4 +17,7 @@ class AdminAuthModel extends AbstractAuthModel {
 	public function check() {
 		return isset($_SESSION['admin']);
 	}
+	public function isadmin() {
+		return true;
+	}
 }

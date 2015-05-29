@@ -3,13 +3,18 @@
 	var first_time = true,
 		filter = make_filter('ip_start','ip_finish','cidr');
 	addWareLogCtrl('Subscribe',filter,function ($scope,$http) {
+		function anyaction() {
+			$scope.error = '';
+			$scope.success = '';
+		}
+		anyaction();
 		$http.get('index.php?ctrl=subscribe&action=lst').success(
 			function(data) {
 				$scope.ranges = data;
 			}
 		);
-		$scope.error = '';
 		$scope.dosubscribe = function () {
+			anyaction();
 			cidr2range();
 			$http.get('index.php?ctrl=subscribe&action=add'+filter($scope)).success(
 				function(data){
@@ -23,6 +28,7 @@
 			);
 		};
 		$scope.rangedel = function (id,index) {
+			anyaction();
 			if(confirm("Are you sure you want to delete the range from your watchlist?")){
 				$http.get('index.php?ctrl=subscribe&action=del&id='+id).success(
 					function(data){
@@ -32,12 +38,14 @@
 			}
 		};
 		$scope.filtereddata = function(){
+			anyaction();
 			$scope.error = '';
 			cidr2range();
 			$scope.loadpages();
 			$scope.proxy_loadpages();
 		};
 		$scope.setrange = function(start,finish) {
+			anyaction();
 			$scope.ip_start = start;
 			$scope.ip_finish = finish;
 			$scope.cidr = '';
@@ -75,6 +83,30 @@
 				}
 			);
 		};
+		$scope.chpass = function () {
+			anyaction();
+			if(!$scope.pass || !$scope.repass){
+				$scope.error = 'Password or password confirmation is empty';
+				return;
+			}
+			if($scope.pass != $scope.repass){
+				$scope.error = 'Password and re-password are not matched';
+				return;
+			}
+			if($scope.pass.length<6){
+				$scope.error = 'Password length must be not less than 6';
+				return;
+			}
+			$http.get('index.php?ctrl=manusers&action=chpass&pass='+$scope.pass).success(
+				function(data) {
+					if(data){
+						$scope.success = 'Password was successfuly changed';
+					}else{
+						$scope.error = "Password wasn't checged";
+					}
+				}
+			);
+		}
 	},
 	[]);
 })();

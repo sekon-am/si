@@ -9,7 +9,9 @@ class Auth extends Ctrl {
 		$this->model = new AuthModel();
 	}
 	public function loginform() {
-		$view = new LoginView();
+		$view = new LoginView(array(
+			'isadmin' => $this->model->isadmin(),
+		));
 		$view->loginJs = $this->model->getLoginJs();
 		$view->display();
 	}
@@ -52,5 +54,18 @@ class Auth extends Ctrl {
 	}
 	public function getHash() {
 		return $this->model->getCurrentHash();
+	}
+	public function recoveryform() {
+		$view = new RecoveryView();
+		$view->display();
+	}
+	public function recovery() {
+		if( $res = $this->model->recovery(
+			Input::get('login'),
+			Input::get('email')
+		)){
+			mail($res->email,'Si.intelcrawler.com: new password','Dear '.$res->login."!\nYour password was changed to ".$res->pass."\nThanks, si.intelcrawler.com",'From: bot@si.intelcrawler.com' . "\r\n");
+		}
+		Response::json($res);
 	}
 }

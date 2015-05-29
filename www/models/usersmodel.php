@@ -4,13 +4,7 @@ class UsersModel extends Model {
 		return $this->query("SELECT * FROM users");
 	}
 	private function mkhash() {
-		$letters = "abcdefghijklmnopqrstuvwxyz";
-		$symbs = "0123456789".$letters.strtoupper($letters);
-		$str = '';
-		for($i=0;$i<Config::USER_HASH_LENGTH;$i++){
-			$str .= $symbs{mt_rand(0,strlen($symbs)-1)};
-		}
-		return $str;
+		return Str::rand( Config::USER_HASH_LENGTH );
 	}
 	public function add($login,$email,$pass) {
 		$hash = $this->mkhash();
@@ -24,5 +18,9 @@ class UsersModel extends Model {
 	}
 	public function get($id) {
 		return $this->query("SELECT * FROM users WHERE id='{$id}'");
+	}
+	public function chpass($login,$pass) {
+		$this->query("UPDATE users SET pass='" . md5($pass) . "' WHERE login = '{$login}'");
+		return $this->affected_rows();
 	}
 }

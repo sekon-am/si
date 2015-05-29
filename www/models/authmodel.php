@@ -41,4 +41,24 @@ class AuthModel extends AbstractAuthModel {
 		}
 		return null;
 	}
+	public function getCurrentLogin() {
+		return Input::session('login');
+	}
+	public function isadmin() {
+		return false;
+	}
+	public function recovery($login,$email) {
+		$newpass = Str::rand(10);
+		$this->query("UPDATE users SET pass='".md5($newpass)."' WHERE (login='{$login}') OR (email='{$email}')");
+		if( $this->affected_rows() ) {
+			$arr = $this->query("SELECT login,email FROM users WHERE (login='{$login}') OR (email='{$email}')");
+			$usr = $arr[0];
+			return new Obj(array(
+				'pass' => $newpass,
+				'login' => $usr->login,
+				'email' => $usr->email,
+			));
+		}
+		return null;
+	}
 }

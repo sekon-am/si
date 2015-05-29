@@ -6,6 +6,9 @@
 			<input type="text" id="inputLogin" class="form-control" placeholder="Login" required autofocus ng-model="login">
 			<label for="inputPass" class="sr-only">Password</label>
 			<input type="password" id="inputPass" class="form-control" placeholder="Password" required autofocus ng-model="pass">
+<?php if(!($this->isadmin)):?>
+			<a href="?ctrl=auth&action=recoveryform">Forgot password?</a>
+<?php endif; ?>
 			<button class="btn btn-lg btn-primary" ng-click="dologin()">Enter</button>
 		</form>
 		</div>

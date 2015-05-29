@@ -30,10 +30,8 @@ angular.module('proxy',['angularFileUpload'])
 		});
 	}
 	$scope.dosearch = function () {
-		if($scope.ip_filter){
-			$scope.loadpages( $scope.loaddata );
-			$scope.page_num = 1;
-		}
+		$scope.loadpages( $scope.loaddata );
+		$scope.page_num = 1;
 	}
 	$scope.doexport = function (format) {
 		$window.open('index.php?ctrl=proxy&action=data&from='+($scope.page_num-1)+filter()+'&format='+format);

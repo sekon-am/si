@@ -13,9 +13,11 @@ class ManUsers extends Ctrl {
 		$view->display();
 	}
 	public function lst() {
+		$this->auth->check();
 		Response::json( $this->model->lst() );
 	}
 	public function add() {
+		$this->auth->check();
 		$login = Input::get('login');
 		$email = Input::get('email');
 		$pass = Input::get('pass');
@@ -24,9 +26,18 @@ class ManUsers extends Ctrl {
 		);
 	}
 	public function del() {
+		$this->auth->check();
 		Response::json( 
 			$this->model->del( 
 				Input::get('id') 
+			)
+		);
+	}
+	public function chpass() {
+		Response::json(
+			$this->model->chpass(
+				Input::session('login'),
+				Input::get('pass')
 			)
 		);
 	}

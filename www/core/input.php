@@ -4,6 +4,7 @@ class Input {
 		if($name && array_key_exists($name,$array)){
 			return htmlspecialchars(addslashes($array[$name]));
 		}
+		return null;
 	}
 	public static function get($name) {
 		return self::value($name,$_GET);

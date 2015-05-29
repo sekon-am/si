@@ -129,23 +129,24 @@ class Proxy extends Ctrl {
 		set_time_limit(0);
 		$res = null;
 		foreach($_FILES as $file){
-			move_uploaded_file($file['tmp_name'],$file['name']);
-			$fname = $file['name'];
-			$f = fopen($fname, 'r');
-			$str = '';
 			$amount = 0;
-			while(!feof($f)){
-				$str .= fread($f,100000);
-				$lns = explode("\n",$str);
-				$amount += count($lns);
-				$str = array_pop($lns);
-				foreach($lns as $ln){
-					$this->addLn($ln);
+			$fname = $file['name'];
+			move_uploaded_file($file['tmp_name'],$fname);
+			if($f = fopen($fname, 'r')){
+				$str = '';
+				while(!feof($f)){
+					$str .= fread($f,100000);
+					$lns = explode("\n",$str);
+					$amount += count($lns);
+					$str = array_pop($lns);
+					foreach($lns as $ln){
+						$this->addLn($ln);
+					}
+					$this->model->submitAdd();
 				}
-				$this->model->submitAdd();
+				fclose($f);
+				unlink($fname);
 			}
-			fclose($f);
-			unlink($fname);
 			$obj = null;
 			$obj->fname = $fname;
 			$obj->amount = $amount;

@@ -10,5 +10,6 @@ abstract class AbstractAuthModel extends Model {
 	}
 	abstract public function login($login,$pass);
 	abstract public function logout();
-	abstract function check();
+	abstract public function check();
+	abstract public function isadmin();
 }

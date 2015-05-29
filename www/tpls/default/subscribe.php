@@ -1,7 +1,21 @@
 		<div class="jumbotron" ng-app="Subscribe" ng-controller="SubscribeCtrl">
-			<h1>Your hash: <span><?php echo $this->hash; ?></span></h1>
-			<h1>Subscribe on databse updates</h1>
+			<div class="alert alert-success" role="alert" ng-if="success">{{success}}</div>
 			<div class="alert alert-danger" role="alert" ng-if="error">{{error}}</div>
+			<h2>Your hash: <span><?php echo $this->hash; ?></span></h2>
+			<form class="form-inline">
+				<h2 class="ch-pass">Change password:</h2>
+				<div class="form-group">
+					<label class="sr-only" for="user-pass"></label>
+					<input type="password" class="form-control" id="user-pass" placeholder="Password" ng-model="pass">
+				</div>
+				<div class="form-group">
+					<label class="sr-only" for="user-repass"></label>
+					<input type="password" class="form-control" id="user-repass" placeholder="Re-password" ng-model="repass">
+				</div>
+				<button class="btn btn-default" ng-click="chpass()">Submit</button>
+			</form>
+
+			<h2>Subscribe on databse updates</h2>
 			<ul class="ip-ranges">
 				<li ng-repeat="range in ranges">
 					<span ng-click="setrange(range.ip_start,range.ip_finish)" class="ip-range">{{range.ip_start}}&nbsp;..&nbsp;{{range.ip_finish}}</span>
