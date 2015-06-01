@@ -130,7 +130,7 @@ class Proxy extends Ctrl {
 		$res = null;
 		foreach($_FILES as $file){
 			$amount = 0;
-			$fname = $file['name'];
+			$fname = '/data/'.$file['name'];
 			move_uploaded_file($file['tmp_name'],$fname);
 			if($f = fopen($fname, 'r')){
 				$str = '';

@@ -45,11 +45,11 @@ class ProxyModel extends Model {
 		if($this->dataAdd){
 			$this->dataAdd .= ',';
 		}
-		$this->dataAdd .= "('".implode("','",array_slice($params,0,3))."')";
+		$this->dataAdd .= "('".implode("','",array_slice($params,0,2))."')";
 	}
 	public function submitAdd() {
 		if($this->dataAdd){
-			$this->query("INSERT INTO proxies (ip,port,srv) VALUES ".$this->dataAdd);
+			$this->query("INSERT INTO proxies (ip,port) VALUES ".$this->dataAdd);
 			$this->dataAdd = '';
 			return $this->affected_rows();
 		}
