@@ -16,7 +16,7 @@ class Auth extends Ctrl {
 		$view->display();
 	}
 	public function login() {
-		$res = null;
+		$res = new stdClass();
 		$res->done = false;
 		$res->error = '';
 		if( ( $login = trim( Input::get('login') ) ) && ( $pass = trim( Input::get('pass') ) ) ) {
