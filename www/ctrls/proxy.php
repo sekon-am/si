@@ -147,7 +147,7 @@ class Proxy extends Ctrl {
 				fclose($f);
 				unlink($fname);
 			}
-			$obj = null;
+			$obj = new stdClass();
 			$obj->fname = $fname;
 			$obj->amount = $amount;
 			$res->files []= $obj;

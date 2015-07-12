@@ -11,7 +11,7 @@ our @EXPORT = qw( sfp_connect prepare_ip );
 
 sub sfp_connect {
 	#my $dbh = DBI->connect("DBI:mysql:database=si;host=localhost","si", "asdasopfjm242",{'RaiseError' => 1});
-	my $dbh = DBI->connect("DBI:mysql:database=test;host=localhost","root", "",{'RaiseError' => 1});
+	my $dbh = DBI->connect("DBI:mysql:database=sie;host=localhost","root", "admin",{'RaiseError' => 1});
 	return $dbh;
 }
 sub prepare_ip { 
