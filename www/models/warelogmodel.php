@@ -5,7 +5,7 @@ class WareLogModel extends Model {
             parent::__construct();
             $this->countries = require(__DIR__ . '/../data/countries.php');
         }
-	private function makeWhere($ip='',$domain='',$malware='',$ip_start='',$ip_finish='') {
+	private function makeWhere($ip='',$domain='',$malware='',$ip_start='',$ip_finish='',$country='') {
 		$sql = " WHERE 1";
 		if($ip) {
 			$sql .= ' AND (ip LIKE "'.Ip::long($ip).'%")';
@@ -22,6 +22,10 @@ class WareLogModel extends Model {
 		if($ip_finish) {
 			$sql .= " AND (ip <= '".Ip::long($ip_finish)."')";
 		}
+                if($country) {
+                    $sql .= " AND (country = '{$country}')";
+                }
+
 		return $sql;
 	}
 	private function prepareRow( &$el, $num ) {
@@ -33,7 +37,7 @@ class WareLogModel extends Model {
 		$el->port = $diagnostic[2];
 		$el->ip2 = (count($diagnostic)>3)?$diagnostic[3]:'';
 		unset($el->diagnostic);
-                $el->countryName = $this->countries[ $el->country ];
+                $el->countryName = ucfirst(strtolower($this->countries[ $el->country ]));
 	}
 	private function prepareRows(&$rows,$from) {
 		$i = 1;
@@ -42,13 +46,13 @@ class WareLogModel extends Model {
 		}
 		return $rows;
 	}
-	public function rowsAmount($ip='',$domain='',$malware='',$ip_start='',$ip_finish='') {
-		$sql = "SELECT COUNT(*) as `amount` FROM sfp" . $this->makeWhere($ip,$domain,$malware,$ip_start,$ip_finish);
+	public function rowsAmount($ip='',$domain='',$malware='',$ip_start='',$ip_finish='',$country='') {
+		$sql = "SELECT COUNT(*) as `amount` FROM sfp" . $this->makeWhere($ip,$domain,$malware,$ip_start,$ip_finish,$country);
 		$res = $this->query($sql);
 		return $res[0]->amount;
 	}
-	public function sliceData($from,$ip='',$domain='',$malware='',$ip_start='',$ip_finish='',$limit=0) {
-		$sql = "SELECT * FROM sfp" . $this->makeWhere($ip,$domain,$malware,$ip_start,$ip_finish);
+	public function sliceData($from,$ip='',$domain='',$malware='',$ip_start='',$ip_finish='',$limit=0,$country='') {
+		$sql = "SELECT * FROM sfp" . $this->makeWhere($ip,$domain,$malware,$ip_start,$ip_finish,$country);
 		if( !$limit ) $limit = Config::SETS_PER_PAGE;
 		$sql .= " LIMIT {$from}," . $limit;
 		$data = $this->query($sql);

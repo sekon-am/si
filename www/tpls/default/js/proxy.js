@@ -45,14 +45,18 @@ angular.module('proxy',['angularFileUpload'])
 					url: 'index.php?ctrl=proxy&action=import',
 					file: file
 				}).progress(function (evt) {
-					var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-					console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+					$scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
 				}).success(function (data, status, headers, config) {
-					$scope.loadpages( $scope.loaddata );
+					$scope.loadpages( function() {
+                                            $scope.loaddata();
+                                            alert("File(s) with proxies was successfuly uploaded");
+                                            $scope.uploadProgress = 0;
+                                        });
 				});
 			}
 		}
 	});
 
 	$scope.loadpages( $scope.loaddata );
+        $scope.uploadProgress = 0;
 }]);

@@ -113,6 +113,9 @@ body{
 	margin:3px 0;
 	list-style-type: none;
 }
+.hosts-by-country li {
+    width:320px;
+}
 .host-field{
 	font-weight:bold;
 }
@@ -129,4 +132,31 @@ body{
 	max-width:600px;
 	margin-left:auto;
 	margin-right:auto;
+}
+.progress-bar {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+.bline span , .hosts-by-country span {
+    vertical-align: bottom !important;
+}
+.hosts-by-country a:hover {
+    text-decoration:none;
+} 
+.pagination{
+    overflow: hiddfen;
+}
+.pagination span{
+    float:left;
+    margin-left:5px;
+}
+.pagination-item{
+    color:#204D74;
+    cursor:pointer;
+}
+.pagination-item.active{
+    cursor:auto;
 }

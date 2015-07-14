@@ -4,14 +4,15 @@
 			<h4>Hosts by country</h4>
 			<ul class="hosts-by-country">
 <?php foreach( $this->byCountry as $stat ): ?>
+<?php if( strpos( $stat->country, '?' ) === FALSE && trim($stat->country)){ ?>
 				<li>
-<?php if( strpos( $stat->country, '?' ) === FALSE ){ ?>
-					<span class="flag-icon flag-icon-<?php echo $stat->country; ?>"></span>
-<?php }else{ ?>
-					<span class="flag-icon"><?php echo $stat->country; ?></span>
-<?php } ?>
-					<span class="host-amount">(<?php echo $stat->amount; ?>)</span>
+                                    <a href="index.php?ctrl=warelog&country=<?php echo $stat->country; ?>">
+                                        <span class="flag-icon flag-icon-<?php echo $stat->country; ?>"></span>&nbsp;
+                                        <span><?php echo $stat->countryName; ?></span>
+                                    </a>
+                                    <span class="host-amount">(<?php echo $stat->amount; ?>)</span>
 				</li>
+<?php } ?>
 <?php endforeach; ?>
 			</ul>
 			<h4>Hosts by port</h4>

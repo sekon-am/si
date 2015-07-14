@@ -35,6 +35,11 @@
 					</span>
 				</div>
 				<div ng-file-drop ng-file-select ng-model="files" class="drop-box" drag-over-class="dragover" ng-multiple="true" allow-dir="true" accept="text/plain">Drop *.txt files with proxy lists here or click to upload</div>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width:{{uploadProgress}}%">
+                                        <span class="progress-hint">{{uploadProgress}}%</span>
+                                    </div>
+                                </div>
 			</div>
 		</div>
 		<script src="<?php $this->printTplDir(); ?>js/angular-file-upload.js"></script>

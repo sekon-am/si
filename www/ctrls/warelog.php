@@ -21,6 +21,7 @@ class WareLog extends Ctrl {
 			$this->params['ip_start'] = Input::get('ip_start');
 			$this->params['ip_finish'] = Input::get('ip_finish');
 		}
+                $this->params['country'] = Input::get('country');
 	}
 	public function pages() {
 		$this->auth->check();
@@ -30,7 +31,8 @@ class WareLog extends Ctrl {
 			$this->params['domain'],
 			$this->params['malware'],
 			$this->params['ip_start'],
-			$this->params['ip_finish']
+			$this->params['ip_finish'],
+			$this->params['country']
 		);
 		echo json_encode(
 			new Obj(
@@ -49,7 +51,8 @@ class WareLog extends Ctrl {
 			$this->params['malware'],
 			$this->params['ip_start'],
 			$this->params['ip_finish'],
-			Config::ROWS_FORMAT
+			Config::ROWS_FORMAT,
+			$this->params['country']
 		);
 	}
 	public function data() {
@@ -62,7 +65,8 @@ class WareLog extends Ctrl {
 				$this->params['domain'],
 				$this->params['malware'],
 				$this->params['ip_start'],
-				$this->params['ip_finish']
+				$this->params['ip_finish'],
+                                $this->params['country']
 			);
 			switch($format){
 				case 'txt':
@@ -130,7 +134,9 @@ class WareLog extends Ctrl {
 					$this->params['domain'],
 					$this->params['malware'],
 					$this->params['ip_start'],
-					$this->params['ip_finish']
+					$this->params['ip_finish'],
+                                        Config::SETS_PER_PAGE,
+                                        $this->params['country']
 				)
 			);
 		}
@@ -138,6 +144,7 @@ class WareLog extends Ctrl {
 	public function index() {
 		$this->auth->checkUI();
 		$view = new WareLogView();
+                $view->country = Input::get('country');
 		$view->display();
 	}
 	public function cidr2range() {
