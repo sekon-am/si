@@ -43,4 +43,6 @@
                             <span class="pagination-item" ng-if="page_num<pages_amount" ng-click="goto(page_num+1)">&gt;</span>
 			</div>
                         <input type="hidden" id="country" value="<?php echo $this->country; ?>"/>
+                        <input type="hidden" id="malware" value="<?php echo $this->malware; ?>"/>
+                        <input type="hidden" id="port" value="<?php echo $this->port; ?>"/>
 			<script src="<?php $this->printTplDir(); ?>js/waretable.js"></script>

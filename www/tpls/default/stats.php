@@ -19,7 +19,9 @@
 			<ul class="hosts-by-any">
 <?php foreach( $this->byPort as $stat ): ?>
 				<li>
+                                    <a href="index.php?ctrl=warelog&port=<?php echo $stat->port; ?>">
 					<span class="host-field"><?php echo $stat->port; ?></span>
+                                    </a>
 					<span class="host-amount">(<?php echo $stat->amount; ?>)</span>
 				</li>
 <?php endforeach; ?>
@@ -28,7 +30,9 @@
 			<ul class="hosts-by-any">
 <?php foreach( $this->byMalware as $stat ): ?>
 				<li>
+                                    <a href="index.php?ctrl=warelog&malware=<?php echo $stat->malware; ?>">
 					<span class="host-field"><?php echo $stat->malware; ?></span>
+                                    </a>
 					<span class="host-amount">(<?php echo $stat->amount; ?>)</span>
 				</li>
 <?php endforeach; ?>

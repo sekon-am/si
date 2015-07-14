@@ -5,7 +5,7 @@ class WareLogModel extends Model {
             parent::__construct();
             $this->countries = require(__DIR__ . '/../data/countries.php');
         }
-	private function makeWhere($ip='',$domain='',$malware='',$ip_start='',$ip_finish='',$country='') {
+	private function makeWhere($ip='',$domain='',$malware='',$ip_start='',$ip_finish='',$country='',$port='') {
 		$sql = " WHERE 1";
 		if($ip) {
 			$sql .= ' AND (ip LIKE "'.Ip::long($ip).'%")';
@@ -25,7 +25,9 @@ class WareLogModel extends Model {
                 if($country) {
                     $sql .= " AND (country = '{$country}')";
                 }
-
+                if($port) {
+                    $sql .= " AND (port = '{$port}')";
+                }
 		return $sql;
 	}
 	private function prepareRow( &$el, $num ) {
@@ -46,13 +48,13 @@ class WareLogModel extends Model {
 		}
 		return $rows;
 	}
-	public function rowsAmount($ip='',$domain='',$malware='',$ip_start='',$ip_finish='',$country='') {
-		$sql = "SELECT COUNT(*) as `amount` FROM sfp" . $this->makeWhere($ip,$domain,$malware,$ip_start,$ip_finish,$country);
+	public function rowsAmount($ip='',$domain='',$malware='',$ip_start='',$ip_finish='',$country='',$port='') {
+		$sql = "SELECT COUNT(*) as `amount` FROM sfp" . $this->makeWhere($ip,$domain,$malware,$ip_start,$ip_finish,$country,$port);
 		$res = $this->query($sql);
 		return $res[0]->amount;
 	}
-	public function sliceData($from,$ip='',$domain='',$malware='',$ip_start='',$ip_finish='',$limit=0,$country='') {
-		$sql = "SELECT * FROM sfp" . $this->makeWhere($ip,$domain,$malware,$ip_start,$ip_finish,$country);
+	public function sliceData($from,$ip='',$domain='',$malware='',$ip_start='',$ip_finish='',$limit=0,$country='',$port='') {
+		$sql = "SELECT * FROM sfp" . $this->makeWhere($ip,$domain,$malware,$ip_start,$ip_finish,$country,$port);
 		if( !$limit ) $limit = Config::SETS_PER_PAGE;
 		$sql .= " LIMIT {$from}," . $limit;
 		$data = $this->query($sql);
