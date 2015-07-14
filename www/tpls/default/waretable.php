@@ -5,7 +5,7 @@
 						<th>IP</th>
 						<th>Domain</th>
 						<th>Country</th>
-						<th>Data&amp;Time</th>
+						<th>Data &amp; Time</th>
 						<th>Malware</th>
 						<th>Destination IP</th>
 						<th>Port</th>
@@ -17,7 +17,11 @@
 						<th scope="row">{{fields.num}}</th>
 						<td>{{fields.ip}}</td>
 						<td>{{fields.domain}}</td>
-						<td><span class="flag-icon flag-icon-{{fields.country | lowercase}}"></span></td>
+						<td>
+                                                    <a href="#" data-toggle="tooltip" title="{{fields.countryName}}">
+                                                       <span class="flag-icon flag-icon-{{fields.country | lowercase}}"></span>
+                                                    </a>
+                                                </td>
 						<td>{{fields.t}}</td>
 						<td>{{fields.method}}</td>
 						<td>{{fields.ip1}}</td>

@@ -10,12 +10,12 @@
 				</div>
 				<div class="form-group">
 					<label class="sr-only" for="user-repass"></label>
-					<input type="password" class="form-control" id="user-repass" placeholder="Re-password" ng-model="repass">
+					<input type="password" class="form-control" id="user-repass" placeholder="Re-enter Password" ng-model="repass">
 				</div>
 				<button class="btn btn-default" ng-click="chpass()">Submit</button>
 			</form>
 
-			<h2>Subscribe on databse updates</h2>
+			<h2>Subscribe on database updates</h2>
 			<ul class="ip-ranges">
 				<li ng-repeat="range in ranges">
 					<span ng-click="setrange(range.ip_start,range.ip_finish)" class="ip-range">{{range.ip_start}}&nbsp;..&nbsp;{{range.ip_finish}}</span>
@@ -42,8 +42,8 @@
 			</form>
 			<div role="tabpanel">
 				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#warelog-panel" aria-controls="warelog-panel" role="tab" data-toggle="tab">Infections feed</a></li>
-					<li role="presentation"><a href="#proxies-panel" aria-controls="proxies-panel" role="tab" data-toggle="tab">Proxies feed</a></li>
+					<li role="presentation" class="active"><a href="#warelog-panel" aria-controls="warelog-panel" role="tab" data-toggle="tab">Infections Feed</a></li>
+					<li role="presentation"><a href="#proxies-panel" aria-controls="proxies-panel" role="tab" data-toggle="tab">Proxies Feed</a></li>
 				</ul>
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="warelog-panel">
