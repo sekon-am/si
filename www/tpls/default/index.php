@@ -19,6 +19,7 @@
 		<link href="<?php $this->printTplDir(); ?>css/flag-icon.min.css" rel="stylesheet">
 		<link href="<?php $this->printTplDir(); ?>css/style.css" rel="stylesheet">
 		<script src="<?php $this->printTplDir(); ?>js/angular.js"></script>
+		<script src="<?php $this->printTplDir(); ?>js/bootstrap.min.js"></script>
 	</head>
 <body>
     <nav class="navbar navbar-default navbar-static-top">

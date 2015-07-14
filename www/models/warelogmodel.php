@@ -1,5 +1,10 @@
 <?php
 class WareLogModel extends Model {
+        private $countries;
+        public function __construct() {
+            parent::__construct();
+            $this->countries = require(__DIR__ . '/../data/countries.php');
+        }
 	private function makeWhere($ip='',$domain='',$malware='',$ip_start='',$ip_finish='') {
 		$sql = " WHERE 1";
 		if($ip) {
@@ -28,6 +33,7 @@ class WareLogModel extends Model {
 		$el->port = $diagnostic[2];
 		$el->ip2 = (count($diagnostic)>3)?$diagnostic[3]:'';
 		unset($el->diagnostic);
+                $el->countryName = $this->countries[ $el->country ];
 	}
 	private function prepareRows(&$rows,$from) {
 		$i = 1;
