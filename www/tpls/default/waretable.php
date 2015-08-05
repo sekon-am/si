@@ -21,7 +21,7 @@
                                                     <span class="flag-icon flag-icon-{{fields.country | lowercase}}"></span>&nbsp;<span>{{fields.countryName}}</span>
                                                 </td>
 						<td>{{fields.t}}</td>
-						<td>{{fields.method}}</td>
+                                                <td><a href="index.php?ctrl=warelog&malware={{fields.method}}">{{fields.method}}</a></td>
 						<td>{{fields.ip1}}</td>
 						<td>{{fields.port}}</td>
 						<td>{{fields.ip2}}</td>
@@ -29,9 +29,6 @@
 				</tbody>
 			</table>
 			<div class="pagination">
-<!--				<span>Go to (1-{{pages_amount}})
-					<input type="number" step="1" ng-model="page_num" min="1" max="{{pages_amount}}" ng-change="loaddata()">
-				</span>-->
                             <span class="pagination-item" ng-if="page_num>1" ng-click="goto(page_num-1)">&lt;</span>&nbsp;
                             <span class="pagination-item" ng-if="page_num>1" ng-click="goto(1)">1</span>&nbsp;
                             <span ng-if="page_num>2">...</span>&nbsp;
@@ -42,7 +39,13 @@
                             <span class="pagination-item" ng-if="page_num<pages_amount" ng-click="goto(pages_amount)">{{pages_amount}}</span>
                             <span class="pagination-item" ng-if="page_num<pages_amount" ng-click="goto(page_num+1)">&gt;</span>
 			</div>
+                        <?php if($this->country): ?>
                         <input type="hidden" id="country" value="<?php echo $this->country; ?>"/>
+                        <?php endif; ?>
+                        <?php if($this->malware): ?>
                         <input type="hidden" id="malware" value="<?php echo $this->malware; ?>"/>
+                        <?php endif; ?>
+                        <?php if($this->port): ?>
                         <input type="hidden" id="port" value="<?php echo $this->port; ?>"/>
+                        <?php endif; ?>
 			<script src="<?php $this->printTplDir(); ?>js/waretable.js"></script>

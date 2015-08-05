@@ -15,9 +15,16 @@ function make_filter() {
 function addWareLogCtrl(name,filter,additional,modules){
 	angular.module(name,modules)
 	.controller(name+'Ctrl',['$scope', '$http', '$window', function($scope, $http, $window) {
-                var country = document.getElementById('country').value;
-                var malware = document.getElementById('malware').value;
-                var port = document.getElementById('port').value;
+                function getHiddenParam(name) {
+                    var element = document.getElementById(name);
+                    if(element){
+                        return element.value;
+                    }
+                    return null;
+                }
+                var country = getHiddenParam('country');
+                var malware = getHiddenParam('malware');
+                var port = getHiddenParam('port');
                 function addparams() {
                     var add = '';
                     if(country)add += '&country='+country;

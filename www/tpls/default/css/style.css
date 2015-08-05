@@ -160,3 +160,6 @@ body{
 .pagination-item.active{
     cursor:auto;
 }
+.highlight{
+    color:#f00;
+}

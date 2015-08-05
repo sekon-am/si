@@ -60,4 +60,7 @@ class WareLogModel extends Model {
 		$data = $this->query($sql);
 		return $this->prepareRows( $data, $from );
 	}
+        public function getMalwares() {
+            return $this->query("SELECT DISTINCT malware as name FROM sfp");
+        }
 }

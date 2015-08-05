@@ -2,10 +2,10 @@
 			<div class="">
 				<h1>Proxies Feed</h1>
 				<form class="form-inline">
-					<div class="form-group">
-						<label class="sr-only" for="ip_filter">IP address</label>
-						<input type="text" class="form-control" id="ip_filter" ng-model="ip_filter" placeholder="Enter IP filter">
-					</div>
+                                        <div class="form-group">
+                                                <label class="sr-only" for="cidr">CIDR IP range</label>
+                                                <input type="text" class="form-control" id="cidr" ng-model="cidr" placeholder="Enter 000.000.000.000/32">
+                                        </div>
 					<button type="button" class="btn btn-primary" ng-click="dosearch()">Search</button>
 				</form>
 				<div>

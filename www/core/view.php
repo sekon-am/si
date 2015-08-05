@@ -5,12 +5,7 @@ abstract class View {
 		$this->data = $params;
 	}
 	public function __get($name) {
-		if( array_key_exists( $name, $this->data ) ) {
-			return $this->data[$name];
-		}else{
-			$view = get_class();
-			die("Can't find field {$name} in view {$view}");
-		}
+		return array_key_exists( $name, $this->data ) ? $this->data[$name] : null;
 	}
 	public function __set($name,$value) {
 		$this->data[$name] = $value;

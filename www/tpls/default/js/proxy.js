@@ -14,7 +14,7 @@ angular.module('proxy',['angularFileUpload'])
 			return res;
 		}
 	}
-	var filter = make_filter('ip_filter','ip_start','ip_finish');
+	var filter = make_filter('cidr');
 	$scope.loadpages = function (callback) {
 		$http.get('index.php?ctrl=proxy&action=pages'+filter()).success(function(data){
 			$scope.pages_amount = Math.max(1,data.pages_amount);

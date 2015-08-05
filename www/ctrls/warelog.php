@@ -146,6 +146,9 @@ class WareLog extends Ctrl {
 			);
 		}
 	}
+        public function malwares() {
+            Response::json($this->model->getMalwares());
+        }
 	public function index() {
 		$this->auth->checkUI();
 		$view = new WareLogView();
